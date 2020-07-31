@@ -178,7 +178,8 @@ def test(args):
                 outname = os.path.splitext(impath)[0] + '.png'
                 mask.save(os.path.join(outdir, outname))
 
-    print( 'pixAcc: %.4f, mIoU: %.4f' % (pixAcc, mIoU))
+    if args.eval:
+        print( 'pixAcc: %.4f, mIoU: %.4f' % (pixAcc, mIoU))
 
 class ReturnFirstClosure(object):
     def __init__(self, data):
@@ -196,3 +197,4 @@ if __name__ == "__main__":
     torch.manual_seed(args.seed)
     args.test_batch_size = torch.cuda.device_count()
     test(args)
+

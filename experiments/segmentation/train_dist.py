@@ -125,6 +125,7 @@ class Options():
                 'pcontext': 80,
                 'ade20k': 120,
                 'citys': 240,
+                'minc_seg': 10,
             }
             args.epochs = epoches[args.dataset.lower()]
         if args.lr is None:
@@ -135,6 +136,7 @@ class Options():
                 'pcontext': 0.001,
                 'ade20k': 0.01,
                 'citys': 0.01,
+                'minc_seg': 0.01
             }
             args.lr = lrs[args.dataset.lower()] / 16 * args.batch_size
         print(args)
@@ -312,7 +314,7 @@ def main_worker(gpu, ngpus_per_node, args):
         if args.gpu == 0:
             print(f'Epoch: {epoch}, Time cost: {elapsed}')
 
-    #validation(epoch)
+    validation(epoch)
 
 
 if __name__ == "__main__":

@@ -12,6 +12,8 @@ from torch.nn.functional import interpolate
 
 from .base import BaseNet
 from .fcn import FCNHead
+# from encoding.models import get_segmentation_model
+from encoding.nn import SegmentationLosses, DistSyncBatchNorm
 
 class DeepLabV3(BaseNet):
     r"""DeepLabV3
@@ -308,3 +310,116 @@ def get_deeplab_resnest269_pcontext(pretrained=False, root='~/.encoding/models',
     >>> print(model)
     """
     return get_deeplab('pcontext', 'resnest269', pretrained, aux=True, root=root, **kwargs)
+
+
+def get_deeplab_resnet50s_minc(pretrained=False, root='~/.encoding/models', **kwargs):
+    r"""DeepLabV3 model from the paper `"Context Encoding for Semantic Segmentation"
+    <https://arxiv.org/pdf/1803.08904.pdf>`_
+
+    Parameters
+    ----------
+    pretrained : bool, default False
+        Whether to load the pretrained weights for model.
+    root : str, default '~/.encoding/models'
+        Location for keeping the model parameters.
+
+
+    Examples
+    --------
+    >>> model = get_deeplab_resnest269_pcontext(pretrained=True)
+    >>> print(model)
+    """
+
+    # infer number of classes
+    from ...datasets import datasets, acronyms
+    # dataset='minc_seg'
+    # model = DeepLabV3(datasets[dataset.lower()].NUM_CLASS, backbone='resnet50s', root=root, **kwargs)
+
+    model = get_deeplab(dataset='minc_seg',
+                        backbone='resnet50s', aux=True,
+                        se_loss=False, norm_layer=DistSyncBatchNorm,
+                        base_size=520, crop_size=480)
+    '''                            
+    model = get_segmentation_model(args.model, dataset=args.dataset,
+                                   backbone=args.backbone, aux=args.aux,
+                                   se_loss=args.se_loss, norm_layer=DistSyncBatchNorm,
+                                   base_size=args.base_size, crop_size=args.crop_size,
+                                   **model_kwargs)
+    '''
+    print(model)
+    # model = torch.load('/home/lzj/materialSeg_ws/src/PyTorch-Encoding/experiments/segmentation/model1.pth')
+    # print(model)
+    
+    if pretrained:
+        root = os.path.expanduser(root)
+        checkpoint = torch.load(root+'/deeplab_resnest50_minc_seg2.pth.tar')
+        print('---------------------------------')
+        print(checkpoint['epoch'])
+        print('---------------------------------')
+    
+        print(checkpoint['optimizer'])
+        print('---------------------------------')
+        print(checkpoint['best_pred'])
+        print('---------------------------------')
+
+        model.load_state_dict(checkpoint['state_dict'])
+        # model.load_state_dict(torch.load(root+'/deeplab_resnest50_minc_seg.pth.tar'))
+        print(model)
+        
+    return model
+
+def get_deeplab_resnest50_minc(pretrained=False, root='~/.encoding/models', **kwargs):
+    r"""DeepLabV3 model from the paper `"Context Encoding for Semantic Segmentation"
+    <https://arxiv.org/pdf/1803.08904.pdf>`_
+
+    Parameters
+    ----------
+    pretrained : bool, default False
+        Whether to load the pretrained weights for model.
+    root : str, default '~/.encoding/models'
+        Location for keeping the model parameters.
+
+
+    Examples
+    --------
+    >>> model = get_deeplab_resnest269_pcontext(pretrained=True)
+    >>> print(model)
+    """
+
+    # infer number of classes
+    from ...datasets import datasets, acronyms
+    # dataset='minc_seg'
+    # model = DeepLabV3(datasets[dataset.lower()].NUM_CLASS, backbone='resnet50s', root=root, **kwargs)
+
+    model = get_deeplab(dataset='minc_seg',
+                        backbone='resnest50', aux=True,
+                        se_loss=False, norm_layer=DistSyncBatchNorm,
+                        base_size=520, crop_size=480)
+    '''                            
+    model = get_segmentation_model(args.model, dataset=args.dataset,
+                                   backbone=args.backbone, aux=args.aux,
+                                   se_loss=args.se_loss, norm_layer=DistSyncBatchNorm,
+                                   base_size=args.base_size, crop_size=args.crop_size,
+                                   **model_kwargs)
+    '''
+    print(model)
+    # model = torch.load('/home/lzj/materialSeg_ws/src/PyTorch-Encoding/experiments/segmentation/model1.pth')
+    # print(model)
+    
+    if pretrained:
+        root = os.path.expanduser(root)
+        checkpoint = torch.load(root+'/deeplab_resnest50_minc_seg3.pth.tar')
+        print('---------------------------------')
+        print(checkpoint['epoch'])
+        print('---------------------------------')
+    
+        print(checkpoint['optimizer'])
+        print('---------------------------------')
+        print(checkpoint['best_pred'])
+        print('---------------------------------')
+
+        model.load_state_dict(checkpoint['state_dict'])
+        # model.load_state_dict(torch.load(root+'/deeplab_resnest50_minc_seg.pth.tar'))
+        print(model)
+        
+    return model

@@ -1,0 +1,9 @@
+Namespace(acc_bn=False, aux=False, backbone='resnet50', base_size=520, batch_size=16, crop_size=480, cuda=True, dataset='ade20k', eval=False, export=None, model='encnet', model_zoo='deeplab_resnest101_ade', no_cuda=False, no_val=False, resume=None, se_loss=False, se_weight=0.2, seed=1, test_batch_size=16, test_folder=None, test_val=True, train_split='train', verify=None, workers=16)
+_get_ade20k_pairs split is 
+val
+Namespace(acc_bn=False, aux=False, backbone='resnet50', base_size=520, batch_size=16, crop_size=480, cuda=True, dataset='ade20k', eval=False, export=None, model='encnet', model_zoo='deeplab_resnest50_ade', no_cuda=False, no_val=False, resume=None, se_loss=False, se_weight=0.2, seed=1, test_batch_size=16, test_folder=None, test_val=True, train_split='train', verify=None, workers=16)
+_get_ade20k_pairs split is 
+val
+Namespace(acc_bn=False, aux=False, backbone='resnet50', base_size=520, batch_size=16, crop_size=480, cuda=True, dataset='ade20k', eval=False, export=None, model='encnet', model_zoo='deeplab_resnest50_ade', no_cuda=False, no_val=False, resume=None, se_loss=False, se_weight=0.2, seed=1, test_batch_size=16, test_folder=None, test_val=True, train_split='train', verify=None, workers=16)
+_get_ade20k_pairs split is 
+val

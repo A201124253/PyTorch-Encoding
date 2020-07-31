@@ -68,8 +68,10 @@ def main():
         torch.cuda.manual_seed(args.seed)
     # init dataloader
     _, transform_val = encoding.transforms.get_transform(args.dataset, args.base_size, args.crop_size)
-    valset = encoding.datasets.get_dataset(args.dataset, root=os.path.expanduser('~/.encoding/data'),
-                                           transform=transform_val, train=False, download=True)
+    # valset = encoding.datasets.get_dataset(args.dataset, root=os.path.expanduser('~/.encoding/data'),
+    #                                        transform=transform_val)
+    valset = encoding.datasets.get_dataset(args.dataset,
+                                           transform=transform_val)
     val_loader = torch.utils.data.DataLoader(
         valset, batch_size=args.batch_size, shuffle=False,
         num_workers=args.workers, pin_memory=True if args.cuda else False)
