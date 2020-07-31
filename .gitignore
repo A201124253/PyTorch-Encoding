@@ -11,3 +11,6 @@ encoding.egg-info/
 *.o
 *.so
 *.ninja*
+experments/segmentation/runs/
+experments/segmentation/runs_1/
+experments/segmentation/outdir/
