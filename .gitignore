@@ -16,3 +16,5 @@ experiments/segmentation/runs_1/
 experiments/segmentation/outdir/
 *.pth
 *.tar
+*.jpg
+*.png
