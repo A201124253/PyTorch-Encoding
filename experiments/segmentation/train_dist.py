@@ -26,6 +26,7 @@ from encoding.nn import SegmentationLosses, DistSyncBatchNorm
 
 from encoding.datasets import get_dataset
 from encoding.models import get_segmentation_model
+import matplotlib.pyplot as plt
 
 
 class Options():
@@ -125,7 +126,7 @@ class Options():
                 'pcontext': 80,
                 'ade20k': 120,
                 'citys': 240,
-                'minc_seg': 10,
+                'minc_seg': 120,
             }
             args.epochs = epoches[args.dataset.lower()]
         if args.lr is None:
@@ -233,7 +234,7 @@ def main_worker(gpu, ngpus_per_node, args):
     # lr scheduler
     scheduler = utils.LR_Scheduler_Head(args.lr_scheduler, args.lr,
                                         args.epochs, len(trainloader))
-
+    train_losses = []
     def training(epoch):
         train_sampler.set_epoch(epoch)
         global best_pred
@@ -248,13 +249,23 @@ def main_worker(gpu, ngpus_per_node, args):
             loss = criterion(*outputs, target)
             loss.backward()
             optimizer.step()
+            
             train_loss += loss.item()
             if i % 100 == 0 and args.gpu == 0:
                 iter_per_sec = 100.0 / (time.time() - tic) if i != 0 else 1.0/ (time.time() - tic)
                 tic = time.time()
                 print('Epoch: {}, Iter: {}, Speed: {:.3f} iter/sec, Train loss: {:.3f}'. \
                       format(epoch, i, iter_per_sec, train_loss / (i + 1)))
-
+        train_losses.append(train_loss/len(trainloader))
+        plt.plot(train_losses)
+        plt.xlabel('Epoch')
+        plt.ylabel('Train_loss')
+        plt.title('Train_Loss')
+        plt.grid()
+        plt.savefig('./loss_fig/train_losses.pdf')
+        plt.savefig('./loss_fig/train_losses.svg')
+    
+    p_m = []
     def validation(epoch):
         # Fast test during the training using single-crop only
         global best_pred
@@ -280,6 +291,15 @@ def main_worker(gpu, ngpus_per_node, args):
         pixAcc, mIoU = utils.get_pixacc_miou(*all_metircs)
         if args.gpu == 0:
             print('pixAcc: %.3f, mIoU: %.3f' % (pixAcc, mIoU))
+            p_m.append((pixAcc, mIoU))
+            plt.plot(p_m)
+            plt.xlabel('10 Epoch')
+            plt.title('pixAcc, mIoU')
+            plt.legend(('pixAcc', 'mIoU'))
+            plt.grid()
+            plt.savefig('./loss_fig/pixAcc_mIoU.pdf')
+            plt.savefig('./loss_fig/pixAcc_mIoU.svg')
+
             if args.eval: return
             new_pred = (pixAcc + mIoU)/2
             if new_pred > best_pred:

@@ -71,12 +71,13 @@ class image_seg:
         pil2ros = np.asarray(mask)
 
         pil2ros = cv2.cvtColor(pil2ros, cv2.COLOR_RGB2BGR)
-        # cv2.imwrite('follower.png',pil2ros)
+        cv2.imwrite('follower202008031546.png',pil2ros)
         # print(pil2ros.shape)
         
         # show the mask
         cv2.imshow("Image window", pil2ros)
         cv2.waitKey(3)
+
         msg = CompressedImage()
         msg.header.stamp = rospy.Time.now()
         msg.format = "jpeg"
