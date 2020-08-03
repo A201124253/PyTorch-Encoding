@@ -294,9 +294,11 @@ def main_worker(gpu, ngpus_per_node, args):
             p_m.append((pixAcc, mIoU))
             plt.plot(p_m)
             plt.xlabel('10 Epoch')
+            plt.ylabel('pixAcc, mIoU')
             plt.title('pixAcc, mIoU')
-            plt.legend(('pixAcc', 'mIoU'))
             plt.grid()
+            plt.legend(('pixAcc', 'mIoU'))
+
             plt.savefig('./loss_fig/pixAcc_mIoU.pdf')
             plt.savefig('./loss_fig/pixAcc_mIoU.svg')
 
