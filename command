@@ -1,4 +1,6 @@
 python test.py --dataset ade20k --model-zoo deeplab_resnest101_ade --test-val
+python test.py --dataset minc_seg --model-zoo deeplab_resnest50_minc --test-val
+
 
 # train new model
 cd ~/materialSeg_ws/src/PyTorch-Encoding/experiments/segmentation

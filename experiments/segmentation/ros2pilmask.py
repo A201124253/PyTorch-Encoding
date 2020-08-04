@@ -26,7 +26,7 @@ input_transform = transform.Compose([
 
 # Get the model
 # model = encoding.models.get_model('fcn_resnest50_ade', pretrained=True).cuda()
-model = encoding.models.get_model('deeplab_resnest50_ade', pretrained=True).cuda()
+model = encoding.models.get_model('deeplab_resnest50_minc', pretrained=True).cuda()
 print(model)
 model.eval()
 
