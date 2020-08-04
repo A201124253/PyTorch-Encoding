@@ -14,6 +14,8 @@ from .base import BaseNet
 from .fcn import FCNHead
 # from encoding.models import get_segmentation_model
 from encoding.nn import SegmentationLosses, DistSyncBatchNorm
+# infer number of classes
+from ...datasets import datasets, acronyms
 
 class DeepLabV3(BaseNet):
     r"""DeepLabV3
@@ -346,7 +348,7 @@ def get_deeplab_resnet50s_minc(pretrained=False, root='~/.encoding/models', **kw
                                    base_size=args.base_size, crop_size=args.crop_size,
                                    **model_kwargs)
     '''
-    print(model)
+    # print(model)
     # model = torch.load('/home/lzj/materialSeg_ws/src/PyTorch-Encoding/experiments/segmentation/model1.pth')
     # print(model)
     
@@ -386,25 +388,11 @@ def get_deeplab_resnest50_minc(pretrained=False, root='~/.encoding/models', **kw
     >>> print(model)
     """
 
-    # infer number of classes
-    from ...datasets import datasets, acronyms
-    # dataset='minc_seg'
-    # model = DeepLabV3(datasets[dataset.lower()].NUM_CLASS, backbone='resnet50s', root=root, **kwargs)
 
     model = get_deeplab(dataset='minc_seg',
                         backbone='resnest50', aux=True,
                         se_loss=False, norm_layer=DistSyncBatchNorm,
                         base_size=520, crop_size=480)
-    '''                            
-    model = get_segmentation_model(args.model, dataset=args.dataset,
-                                   backbone=args.backbone, aux=args.aux,
-                                   se_loss=args.se_loss, norm_layer=DistSyncBatchNorm,
-                                   base_size=args.base_size, crop_size=args.crop_size,
-                                   **model_kwargs)
-    '''
-    print(model)
-    # model = torch.load('/home/lzj/materialSeg_ws/src/PyTorch-Encoding/experiments/segmentation/model1.pth')
-    # print(model)
     
     if pretrained:
         root = os.path.expanduser(root)
@@ -419,7 +407,50 @@ def get_deeplab_resnest50_minc(pretrained=False, root='~/.encoding/models', **kw
         print('---------------------------------')
 
         model.load_state_dict(checkpoint['state_dict'])
-        # model.load_state_dict(torch.load(root+'/deeplab_resnest50_minc_seg.pth.tar'))
+        print(model)
+        
+    return model
+
+
+def get_deeplab_resnest101_minc(pretrained=False, root='~/.encoding/models', **kwargs):
+    r"""DeepLabV3 model from the paper `"Context Encoding for Semantic Segmentation"
+    <https://arxiv.org/pdf/1803.08904.pdf>`_
+
+    Parameters
+    ----------
+    pretrained : bool, default False
+        Whether to load the pretrained weights for model.
+    root : str, default '~/.encoding/models'
+        Location for keeping the model parameters.
+
+
+    Examples
+    --------
+    >>> model = get_deeplab_resnest269_pcontext(pretrained=True)
+    >>> print(model)
+    """
+
+
+
+    model = get_deeplab(dataset='minc_seg',
+                        backbone='resnest101', aux=True,
+                        se_loss=False, norm_layer=DistSyncBatchNorm,
+                        base_size=520, crop_size=480)
+
+    if pretrained:
+        root = os.path.expanduser(root)
+        checkpoint = torch.load(root+'/deeplab_resnest101_minc_seg.pth.tar')
+        print('---------------------------------')
+        print(checkpoint['epoch'])
+        print('---------------------------------')
+    
+        print(checkpoint['optimizer'])
+        print('---------------------------------')
+        print(checkpoint['best_pred'])
+        print('---------------------------------')
+
+        model.load_state_dict(checkpoint['state_dict'])
+
         print(model)
         
     return model

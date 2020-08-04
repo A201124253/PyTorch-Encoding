@@ -11,7 +11,7 @@ import time
 import argparse
 import numpy as np
 from tqdm import tqdm
-
+# print('import1')
 import torch
 from torch.utils import data
 import torch.distributed as dist
@@ -20,14 +20,17 @@ import torch.backends.cudnn as cudnn
 import torchvision.transforms as transform
 from torch.nn.parallel.scatter_gather import gather
 from torch.nn.parallel import DistributedDataParallel
-
+# print('import2')
 import encoding.utils as utils
+# print('import3')
 from encoding.nn import SegmentationLosses, DistSyncBatchNorm
 
 from encoding.datasets import get_dataset
+# print('import4')
 from encoding.models import get_segmentation_model
+# print('import5')
 import matplotlib.pyplot as plt
-
+# print('import5')
 
 class Options():
     def __init__(self):
@@ -137,7 +140,7 @@ class Options():
                 'pcontext': 0.001,
                 'ade20k': 0.01,
                 'citys': 0.01,
-                'minc_seg': 0.01
+                'minc_seg': 0.004
             }
             args.lr = lrs[args.dataset.lower()] / 16 * args.batch_size
         print(args)
@@ -264,8 +267,10 @@ def main_worker(gpu, ngpus_per_node, args):
         plt.grid()
         plt.savefig('./loss_fig/train_losses.pdf')
         plt.savefig('./loss_fig/train_losses.svg')
+        plt.close()
     
     p_m = []
+    new_preds = []
     def validation(epoch):
         # Fast test during the training using single-crop only
         global best_pred
@@ -284,13 +289,14 @@ def main_worker(gpu, ngpus_per_node, args):
                 all_metircs = utils.torch_dist_sum(args.gpu, *all_metircs)
                 pixAcc, mIoU = utils.get_pixacc_miou(*all_metircs)
                 if args.gpu == 0:
-                    print('pixAcc: %.3f, mIoU: %.3f' % (pixAcc, mIoU))
+                    print('pixAcc: %.3f, mIoU1: %.3f' % (pixAcc, mIoU))
 
         all_metircs = metric.get_all()
         all_metircs = utils.torch_dist_sum(args.gpu, *all_metircs)
         pixAcc, mIoU = utils.get_pixacc_miou(*all_metircs)
         if args.gpu == 0:
-            print('pixAcc: %.3f, mIoU: %.3f' % (pixAcc, mIoU))
+            print('pixAcc: %.3f, mIoU2: %.3f' % (pixAcc, mIoU))
+
             p_m.append((pixAcc, mIoU))
             plt.plot(p_m)
             plt.xlabel('10 Epoch')
@@ -301,9 +307,21 @@ def main_worker(gpu, ngpus_per_node, args):
 
             plt.savefig('./loss_fig/pixAcc_mIoU.pdf')
             plt.savefig('./loss_fig/pixAcc_mIoU.svg')
+            plt.close()
 
             if args.eval: return
             new_pred = (pixAcc + mIoU)/2
+            new_preds.append(new_pred)
+            
+            plt.plot(new_preds)
+            plt.xlabel('10 Epoch')
+            plt.ylabel('new_predication')
+            plt.title('new_predication')
+            plt.grid()
+            plt.savefig('./loss_fig/new_predication.pdf')
+            plt.savefig('./loss_fig/new_predication.svg')
+            plt.close()
+
             if new_pred > best_pred:
                 is_best = True
                 best_pred = new_pred
