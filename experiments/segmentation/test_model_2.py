@@ -26,7 +26,7 @@ input_transform = transform.Compose([
 
 # Get the model
 # model = encoding.models.get_model('fcn_resnest50_ade', pretrained=True).cuda()
-model = encoding.models.get_model('deeplab_resnest50_minc', pretrained=True).cuda()
+model = encoding.models.get_model('deeplab_resnest101_minc', pretrained=True).cuda()
 # print(model)
 model.eval()
 
@@ -61,7 +61,7 @@ class image_seg:
         mask = encoding.utils.get_mask_pallete(predict, 'ade20k')
         # print(type(mask))
         # print(mask)
-        mask.save('deeplabresnest50_rgb202008040711.png')
+        mask.save('deeplab_resnest101_rgb_202008042350.png')
         # mask.show()
         
         # time.sleep(5)
@@ -71,7 +71,7 @@ class image_seg:
         pil2ros = np.asarray(mask)
 
         pil2ros = cv2.cvtColor(pil2ros, cv2.COLOR_RGB2BGR)
-        cv2.imwrite('deeplabresnest50_gray202008040711.png',pil2ros)
+        cv2.imwrite('deeplabresnest101_gray_202008042350.png',pil2ros)
         # print(pil2ros.shape)
         
         # show the mask

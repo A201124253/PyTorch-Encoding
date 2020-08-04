@@ -1,0 +1,1100 @@
+(material_seg) lzj@ros:~/materialSeg_ws/src/PyTorch-Encoding/experiments/segmentation$ python train_dist.py --dataset minc_seg --model deeplab --aux --backbone resnest101 --batch-size 2
+Namespace(aux=True, aux_weight=0.2, backbone='resnest101', base_size=520, batch_size=2, checkname='default', crop_size=480, dataset='minc_seg', dist_backend='nccl', dist_url='tcp://localhost:23456', epochs=120, eval=False, export=None, ft=False, lr=0.0005, lr_scheduler='poly', model='deeplab', model_zoo=None, momentum=0.9, rank=0, rectify=False, rectify_avg=False, resume=None, se_loss=False, se_weight=0.2, seed=1, start_epoch=0, test_batch_size=16, test_folder=None, test_val=False, train_split='train', weight_decay=0.0001, workers=8, world_size=1)
+rank: 0 / 1
+BaseDataset: base_size 520, crop_size 480
+/home/lzj/.encoding/data/minc_dataset/images/training
+DeepLabV3(
+  (pretrained): ResNet(
+    (conv1): Sequential(
+      (0): Conv2d(3, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (1): DistSyncBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU(inplace=True)
+      (3): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (4): DistSyncBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (5): ReLU(inplace=True)
+      (6): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+    )
+    (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+    (maxpool): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+    (layer1): Sequential(
+      (0): Bottleneck(
+        (conv1): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(64, 32, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(32, 128, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+        (downsample): Sequential(
+          (0): AvgPool2d(kernel_size=1, stride=1, padding=0)
+          (1): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (2): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (1): Bottleneck(
+        (conv1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(64, 32, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(32, 128, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (2): Bottleneck(
+        (conv1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(64, 32, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(32, 128, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+    )
+    (layer2): Sequential(
+      (0): Bottleneck(
+        (conv1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (avd_layer): AvgPool2d(kernel_size=3, stride=2, padding=1)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+        (downsample): Sequential(
+          (0): AvgPool2d(kernel_size=2, stride=2, padding=0)
+          (1): Conv2d(256, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (2): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (1): Bottleneck(
+        (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (2): Bottleneck(
+        (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (3): Bottleneck(
+        (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+    )
+    (layer3): Sequential(
+      (0): Bottleneck(
+        (conv1): Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (avd_layer): AvgPool2d(kernel_size=3, stride=1, padding=1)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+        (downsample): Sequential(
+          (0): AvgPool2d(kernel_size=1, stride=1, padding=0)
+          (1): Conv2d(512, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (2): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (1): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (2): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (3): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (4): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (5): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (6): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (7): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (8): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (9): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (10): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (11): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (12): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (13): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (14): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (15): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (16): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (17): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (18): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (19): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (20): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (21): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (22): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+    )
+    (layer4): Sequential(
+      (0): Bottleneck(
+        (conv1): Conv2d(1024, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (avd_layer): AvgPool2d(kernel_size=3, stride=1, padding=1)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(512, 1024, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+        (downsample): Sequential(
+          (0): AvgPool2d(kernel_size=1, stride=1, padding=0)
+          (1): Conv2d(1024, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (2): DistSyncBatchNorm(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (1): Bottleneck(
+        (conv1): Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(512, 1024, kernel_size=(3, 3), stride=(1, 1), padding=(4, 4), dilation=(4, 4), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (2): Bottleneck(
+        (conv1): Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): DistSyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): SplAtConv2d(
+          (conv): Conv2d(512, 1024, kernel_size=(3, 3), stride=(1, 1), padding=(4, 4), dilation=(4, 4), groups=2, bias=False)
+          (bn0): DistSyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (fc1): Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1))
+          (bn1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (fc2): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1))
+          (rsoftmax): rSoftMax()
+        )
+        (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): DistSyncBatchNorm(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+    )
+    (avgpool): GlobalAvgPool2d()
+    (fc): None
+  )
+  (head): DeepLabV3Head(
+    (aspp): ASPP_Module(
+      (b0): Sequential(
+        (0): Conv2d(2048, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+      )
+      (b1): Sequential(
+        (0): Conv2d(2048, 256, kernel_size=(3, 3), stride=(1, 1), padding=(12, 12), dilation=(12, 12), bias=False)
+        (1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+      )
+      (b2): Sequential(
+        (0): Conv2d(2048, 256, kernel_size=(3, 3), stride=(1, 1), padding=(24, 24), dilation=(24, 24), bias=False)
+        (1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+      )
+      (b3): Sequential(
+        (0): Conv2d(2048, 256, kernel_size=(3, 3), stride=(1, 1), padding=(36, 36), dilation=(36, 36), bias=False)
+        (1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+      )
+      (b4): AsppPooling(
+        (gap): Sequential(
+          (0): AdaptiveAvgPool2d(output_size=1)
+          (1): Conv2d(2048, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (2): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (3): ReLU(inplace=True)
+        )
+      )
+      (project): Sequential(
+        (0): Conv2d(1280, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Dropout2d(p=0.5, inplace=False)
+      )
+    )
+    (block): Sequential(
+      (0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU(inplace=True)
+      (3): Dropout(p=0.1, inplace=False)
+      (4): Conv2d(256, 23, kernel_size=(1, 1), stride=(1, 1))
+    )
+  )
+  (auxlayer): FCNHead(
+    (conv5): Sequential(
+      (0): Conv2d(1024, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (1): DistSyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU()
+      (3): Dropout(p=0.1, inplace=False)
+      (4): Conv2d(256, 23, kernel_size=(1, 1), stride=(1, 1))
+    )
+  )
+)
+Using poly LR scheduler with warm-up epochs of 0!
+Starting Epoch: 0
+Total Epoches: 120
+
+=>Epoch 0, learning rate = 0.0005,                     previous best = 0.0000
+Epoch: 0, Iter: 0, Speed: 0.057 iter/sec, Train loss: 3.922
+Epoch: 0, Iter: 100, Speed: 1.443 iter/sec, Train loss: 3.392
+Epoch: 0, Iter: 200, Speed: 1.344 iter/sec, Train loss: 3.377
+Epoch: 0, Iter: 300, Speed: 1.327 iter/sec, Train loss: 3.264
+Epoch: 0, Iter: 400, Speed: 1.301 iter/sec, Train loss: 3.203
+Epoch: 0, Iter: 500, Speed: 1.299 iter/sec, Train loss: 3.142
+Epoch: 0, Iter: 600, Speed: 1.287 iter/sec, Train loss: 3.118
+Epoch: 0, Iter: 700, Speed: 1.304 iter/sec, Train loss: 3.100
+pixAcc: 0.487, mIoU1: 0.040
+pixAcc: 0.282, mIoU2: 0.028
+Epoch: 0, Time cost: 645.280734539032
+
+=>Epoch 1, learning rate = 0.0005,                     previous best = 0.1545
+Epoch: 1, Iter: 0, Speed: 0.089 iter/sec, Train loss: 4.249
+Epoch: 1, Iter: 100, Speed: 1.340 iter/sec, Train loss: 2.822
+Epoch: 1, Iter: 200, Speed: 1.324 iter/sec, Train loss: 2.784
+Epoch: 1, Iter: 300, Speed: 1.322 iter/sec, Train loss: 2.789
+Epoch: 1, Iter: 400, Speed: 1.329 iter/sec, Train loss: 2.824
+Epoch: 1, Iter: 500, Speed: 1.323 iter/sec, Train loss: 2.830
+Epoch: 1, Iter: 600, Speed: 1.330 iter/sec, Train loss: 2.838
+Epoch: 1, Iter: 700, Speed: 1.332 iter/sec, Train loss: 2.806
+Epoch: 1, Time cost: 612.0538926124573
+
+=>Epoch 2, learning rate = 0.0005,                     previous best = 0.1545
+Epoch: 2, Iter: 0, Speed: 0.089 iter/sec, Train loss: 2.329
+Epoch: 2, Iter: 100, Speed: 1.344 iter/sec, Train loss: 2.646
+Epoch: 2, Iter: 200, Speed: 1.336 iter/sec, Train loss: 2.658
+Epoch: 2, Iter: 300, Speed: 1.345 iter/sec, Train loss: 2.619
+Epoch: 2, Iter: 400, Speed: 1.334 iter/sec, Train loss: 2.654
+Epoch: 2, Iter: 500, Speed: 1.352 iter/sec, Train loss: 2.660
+Epoch: 2, Iter: 600, Speed: 1.322 iter/sec, Train loss: 2.636
+Epoch: 2, Iter: 700, Speed: 1.335 iter/sec, Train loss: 2.623
+Epoch: 2, Time cost: 608.4029514789581
+
+=>Epoch 3, learning rate = 0.0005,                     previous best = 0.1545
+Epoch: 3, Iter: 0, Speed: 0.087 iter/sec, Train loss: 2.187
+Epoch: 3, Iter: 100, Speed: 1.352 iter/sec, Train loss: 2.750
+Epoch: 3, Iter: 200, Speed: 1.335 iter/sec, Train loss: 2.697
+Epoch: 3, Iter: 300, Speed: 1.330 iter/sec, Train loss: 2.657
+Epoch: 3, Iter: 400, Speed: 1.336 iter/sec, Train loss: 2.607
+Epoch: 3, Iter: 500, Speed: 1.339 iter/sec, Train loss: 2.601
+Epoch: 3, Iter: 600, Speed: 1.340 iter/sec, Train loss: 2.593
+Epoch: 3, Iter: 700, Speed: 1.341 iter/sec, Train loss: 2.598
+Epoch: 3, Time cost: 608.2237529754639
+
+=>Epoch 4, learning rate = 0.0005,                     previous best = 0.1545
+Epoch: 4, Iter: 0, Speed: 0.087 iter/sec, Train loss: 3.375
+Epoch: 4, Iter: 100, Speed: 1.348 iter/sec, Train loss: 2.547
+Epoch: 4, Iter: 200, Speed: 1.308 iter/sec, Train loss: 2.511
+Epoch: 4, Iter: 300, Speed: 1.302 iter/sec, Train loss: 2.438
+Epoch: 4, Iter: 400, Speed: 1.309 iter/sec, Train loss: 2.415
+Epoch: 4, Iter: 500, Speed: 1.318 iter/sec, Train loss: 2.456
+Epoch: 4, Iter: 600, Speed: 1.328 iter/sec, Train loss: 2.463
+Epoch: 4, Iter: 700, Speed: 1.319 iter/sec, Train loss: 2.453
+Epoch: 4, Time cost: 616.6768009662628
+
+=>Epoch 5, learning rate = 0.0005,                     previous best = 0.1545
+Epoch: 5, Iter: 0, Speed: 0.089 iter/sec, Train loss: 2.219
+Epoch: 5, Iter: 100, Speed: 1.348 iter/sec, Train loss: 2.120
+Epoch: 5, Iter: 200, Speed: 1.338 iter/sec, Train loss: 2.234
+Epoch: 5, Iter: 300, Speed: 1.332 iter/sec, Train loss: 2.272
+Epoch: 5, Iter: 400, Speed: 1.343 iter/sec, Train loss: 2.301
+Epoch: 5, Iter: 500, Speed: 1.344 iter/sec, Train loss: 2.331
+Epoch: 5, Iter: 600, Speed: 1.337 iter/sec, Train loss: 2.304
+Epoch: 5, Iter: 700, Speed: 1.338 iter/sec, Train loss: 2.333
+Epoch: 5, Time cost: 607.9241213798523
+
+=>Epoch 6, learning rate = 0.0005,                     previous best = 0.1545
+Epoch: 6, Iter: 0, Speed: 0.088 iter/sec, Train loss: 1.864
+Epoch: 6, Iter: 100, Speed: 1.335 iter/sec, Train loss: 2.288
+Epoch: 6, Iter: 200, Speed: 1.340 iter/sec, Train loss: 2.286
+Epoch: 6, Iter: 300, Speed: 1.318 iter/sec, Train loss: 2.252
+Epoch: 6, Iter: 400, Speed: 1.314 iter/sec, Train loss: 2.239
+Epoch: 6, Iter: 500, Speed: 1.345 iter/sec, Train loss: 2.251
+Epoch: 6, Iter: 600, Speed: 1.338 iter/sec, Train loss: 2.291
+Epoch: 6, Iter: 700, Speed: 1.346 iter/sec, Train loss: 2.317
+Epoch: 6, Time cost: 610.2258455753326
+
+=>Epoch 7, learning rate = 0.0005,                     previous best = 0.1545
+Epoch: 7, Iter: 0, Speed: 0.088 iter/sec, Train loss: 1.223
+Epoch: 7, Iter: 100, Speed: 1.348 iter/sec, Train loss: 2.293
+Epoch: 7, Iter: 200, Speed: 1.335 iter/sec, Train loss: 2.270
+Epoch: 7, Iter: 300, Speed: 1.336 iter/sec, Train loss: 2.270
+Epoch: 7, Iter: 400, Speed: 1.324 iter/sec, Train loss: 2.242
+Epoch: 7, Iter: 500, Speed: 1.341 iter/sec, Train loss: 2.236
+Epoch: 7, Iter: 600, Speed: 1.345 iter/sec, Train loss: 2.242
+Epoch: 7, Iter: 700, Speed: 1.345 iter/sec, Train loss: 2.223
+Epoch: 7, Time cost: 606.9668197631836
+
+=>Epoch 8, learning rate = 0.0005,                     previous best = 0.1545
+Epoch: 8, Iter: 0, Speed: 0.088 iter/sec, Train loss: 2.588
+Epoch: 8, Iter: 100, Speed: 1.360 iter/sec, Train loss: 2.133
+Epoch: 8, Iter: 200, Speed: 1.342 iter/sec, Train loss: 2.148
+Epoch: 8, Iter: 300, Speed: 1.338 iter/sec, Train loss: 2.189
+Epoch: 8, Iter: 400, Speed: 1.342 iter/sec, Train loss: 2.152
+Epoch: 8, Iter: 500, Speed: 1.347 iter/sec, Train loss: 2.150
+Epoch: 8, Iter: 600, Speed: 1.348 iter/sec, Train loss: 2.153
+Epoch: 8, Iter: 700, Speed: 1.347 iter/sec, Train loss: 2.151
+Epoch: 8, Time cost: 604.2978348731995
+
+=>Epoch 9, learning rate = 0.0005,                     previous best = 0.1545
+Epoch: 9, Iter: 0, Speed: 0.089 iter/sec, Train loss: 2.151
+Epoch: 9, Iter: 100, Speed: 1.384 iter/sec, Train loss: 2.284
+Epoch: 9, Iter: 200, Speed: 1.370 iter/sec, Train loss: 2.247
+Epoch: 9, Iter: 300, Speed: 1.368 iter/sec, Train loss: 2.242
+Epoch: 9, Iter: 400, Speed: 1.376 iter/sec, Train loss: 2.256
+Epoch: 9, Iter: 500, Speed: 1.359 iter/sec, Train loss: 2.226
+Epoch: 9, Iter: 600, Speed: 1.349 iter/sec, Train loss: 2.195
+Epoch: 9, Iter: 700, Speed: 1.349 iter/sec, Train loss: 2.189
+Epoch: 9, Time cost: 597.2561736106873
+
+=>Epoch 10, learning rate = 0.0005,                     previous best = 0.1545
+Epoch: 10, Iter: 0, Speed: 0.090 iter/sec, Train loss: 1.885
+Epoch: 10, Iter: 100, Speed: 1.358 iter/sec, Train loss: 2.111
+Epoch: 10, Iter: 200, Speed: 1.343 iter/sec, Train loss: 2.119
+Epoch: 10, Iter: 300, Speed: 1.342 iter/sec, Train loss: 2.105
+Epoch: 10, Iter: 400, Speed: 1.345 iter/sec, Train loss: 2.052
+Epoch: 10, Iter: 500, Speed: 1.347 iter/sec, Train loss: 2.022
+Epoch: 10, Iter: 600, Speed: 1.346 iter/sec, Train loss: 2.024
+Epoch: 10, Iter: 700, Speed: 1.346 iter/sec, Train loss: 2.003
+pixAcc: 0.770, mIoU1: 0.102
+pixAcc: 0.511, mIoU2: 0.178
+Epoch: 10, Time cost: 629.2161500453949
+
+=>Epoch 11, learning rate = 0.0005,                     previous best = 0.3445
+Epoch: 11, Iter: 0, Speed: 0.088 iter/sec, Train loss: 1.166
+Epoch: 11, Iter: 100, Speed: 1.387 iter/sec, Train loss: 2.174
+Epoch: 11, Iter: 200, Speed: 1.375 iter/sec, Train loss: 2.155
+Epoch: 11, Iter: 300, Speed: 1.374 iter/sec, Train loss: 2.119
+Epoch: 11, Iter: 400, Speed: 1.372 iter/sec, Train loss: 2.102
+Epoch: 11, Iter: 500, Speed: 1.373 iter/sec, Train loss: 2.094
+Epoch: 11, Iter: 600, Speed: 1.380 iter/sec, Train loss: 2.084
+Epoch: 11, Iter: 700, Speed: 1.358 iter/sec, Train loss: 2.055
+Epoch: 11, Time cost: 594.2442014217377
+
+=>Epoch 12, learning rate = 0.0005,                     previous best = 0.3445
+Epoch: 12, Iter: 0, Speed: 0.086 iter/sec, Train loss: 6.225
+Epoch: 12, Iter: 100, Speed: 1.353 iter/sec, Train loss: 1.981
+Epoch: 12, Iter: 200, Speed: 1.347 iter/sec, Train loss: 1.942
+Epoch: 12, Iter: 300, Speed: 1.365 iter/sec, Train loss: 1.971
+Epoch: 12, Iter: 400, Speed: 1.352 iter/sec, Train loss: 1.943
+Epoch: 12, Iter: 500, Speed: 1.375 iter/sec, Train loss: 1.938
+Epoch: 12, Iter: 600, Speed: 1.341 iter/sec, Train loss: 1.929
+Epoch: 12, Iter: 700, Speed: 1.377 iter/sec, Train loss: 1.956
+Epoch: 12, Time cost: 598.4733247756958
+
+=>Epoch 13, learning rate = 0.0005,                     previous best = 0.3445
+Epoch: 13, Iter: 0, Speed: 0.087 iter/sec, Train loss: 2.064
+Epoch: 13, Iter: 100, Speed: 1.353 iter/sec, Train loss: 1.885
+Epoch: 13, Iter: 200, Speed: 1.340 iter/sec, Train loss: 1.984
+Epoch: 13, Iter: 300, Speed: 1.338 iter/sec, Train loss: 2.021
+Epoch: 13, Iter: 400, Speed: 1.349 iter/sec, Train loss: 1.999
+Epoch: 13, Iter: 500, Speed: 1.375 iter/sec, Train loss: 1.945
+Epoch: 13, Iter: 600, Speed: 1.377 iter/sec, Train loss: 1.950
+Epoch: 13, Iter: 700, Speed: 1.347 iter/sec, Train loss: 1.958
+Epoch: 13, Time cost: 601.5576751232147
+
+=>Epoch 14, learning rate = 0.0004,                     previous best = 0.3445
+Epoch: 14, Iter: 0, Speed: 0.089 iter/sec, Train loss: 3.526
+Epoch: 14, Iter: 100, Speed: 1.350 iter/sec, Train loss: 2.184
+Epoch: 14, Iter: 200, Speed: 1.337 iter/sec, Train loss: 2.174
+Epoch: 14, Iter: 300, Speed: 1.344 iter/sec, Train loss: 2.091
+Epoch: 14, Iter: 400, Speed: 1.372 iter/sec, Train loss: 2.062
+Epoch: 14, Iter: 500, Speed: 1.347 iter/sec, Train loss: 2.014
+Epoch: 14, Iter: 600, Speed: 1.345 iter/sec, Train loss: 1.999
+Epoch: 14, Iter: 700, Speed: 1.374 iter/sec, Train loss: 1.982
+Epoch: 14, Time cost: 600.2903580665588
+
+=>Epoch 15, learning rate = 0.0004,                     previous best = 0.3445
+Epoch: 15, Iter: 0, Speed: 0.090 iter/sec, Train loss: 2.400
+Epoch: 15, Iter: 100, Speed: 1.356 iter/sec, Train loss: 1.978
+Epoch: 15, Iter: 200, Speed: 1.374 iter/sec, Train loss: 2.008
+Epoch: 15, Iter: 300, Speed: 1.374 iter/sec, Train loss: 1.967
+Epoch: 15, Iter: 400, Speed: 1.376 iter/sec, Train loss: 2.012
+Epoch: 15, Iter: 500, Speed: 1.377 iter/sec, Train loss: 2.004
+Epoch: 15, Iter: 600, Speed: 1.380 iter/sec, Train loss: 2.002
+Epoch: 15, Iter: 700, Speed: 1.375 iter/sec, Train loss: 1.979
+Epoch: 15, Time cost: 593.8273279666901
+
+=>Epoch 16, learning rate = 0.0004,                     previous best = 0.3445
+Epoch: 16, Iter: 0, Speed: 0.091 iter/sec, Train loss: 1.729
+Epoch: 16, Iter: 100, Speed: 1.360 iter/sec, Train loss: 2.469
+Epoch: 16, Iter: 200, Speed: 1.371 iter/sec, Train loss: 2.509
+Epoch: 16, Iter: 300, Speed: 1.369 iter/sec, Train loss: 2.540
+Epoch: 16, Iter: 400, Speed: 1.341 iter/sec, Train loss: 2.561
+Epoch: 16, Iter: 500, Speed: 1.349 iter/sec, Train loss: 2.607
+Epoch: 16, Iter: 600, Speed: 1.356 iter/sec, Train loss: 2.604
+Epoch: 16, Iter: 700, Speed: 1.381 iter/sec, Train loss: 2.597
+Epoch: 16, Time cost: 596.7671227455139
+
+=>Epoch 17, learning rate = 0.0004,                     previous best = 0.3445
+Epoch: 17, Iter: 0, Speed: 0.089 iter/sec, Train loss: 1.972
+Epoch: 17, Iter: 100, Speed: 1.358 iter/sec, Train loss: 2.688
+Epoch: 17, Iter: 200, Speed: 1.341 iter/sec, Train loss: 2.595
+Epoch: 17, Iter: 300, Speed: 1.341 iter/sec, Train loss: 2.488
+Epoch: 17, Iter: 400, Speed: 1.345 iter/sec, Train loss: 2.480
+Epoch: 17, Iter: 500, Speed: 1.348 iter/sec, Train loss: 2.462
+Epoch: 17, Iter: 600, Speed: 1.348 iter/sec, Train loss: 2.480
+Epoch: 17, Iter: 700, Speed: 1.354 iter/sec, Train loss: 2.462
+Epoch: 17, Time cost: 602.0107161998749
+
+=>Epoch 18, learning rate = 0.0004,                     previous best = 0.3445
+Epoch: 18, Iter: 0, Speed: 0.091 iter/sec, Train loss: 1.005
+Epoch: 18, Iter: 100, Speed: 1.383 iter/sec, Train loss: 2.341
+Epoch: 18, Iter: 200, Speed: 1.371 iter/sec, Train loss: 2.362
+Epoch: 18, Iter: 300, Speed: 1.341 iter/sec, Train loss: 2.308
+Epoch: 18, Iter: 400, Speed: 1.371 iter/sec, Train loss: 2.342
+Epoch: 18, Iter: 500, Speed: 1.379 iter/sec, Train loss: 2.344
+Epoch: 18, Iter: 600, Speed: 1.352 iter/sec, Train loss: 2.353
+Epoch: 18, Iter: 700, Speed: 1.347 iter/sec, Train loss: 2.350
+Epoch: 18, Time cost: 597.5100412368774
+
+=>Epoch 19, learning rate = 0.0004,                     previous best = 0.3445
+Epoch: 19, Iter: 0, Speed: 0.090 iter/sec, Train loss: 2.788
+Epoch: 19, Iter: 100, Speed: 1.363 iter/sec, Train loss: 2.171
+Epoch: 19, Iter: 200, Speed: 1.342 iter/sec, Train loss: 2.194
+Epoch: 19, Iter: 300, Speed: 1.340 iter/sec, Train loss: 2.193
+Epoch: 19, Iter: 400, Speed: 1.351 iter/sec, Train loss: 2.215
+Epoch: 19, Iter: 500, Speed: 1.344 iter/sec, Train loss: 2.231
+Epoch: 19, Iter: 600, Speed: 1.346 iter/sec, Train loss: 2.220
+Epoch: 19, Iter: 700, Speed: 1.348 iter/sec, Train loss: 2.234
+Epoch: 19, Time cost: 603.0320920944214
+
+=>Epoch 20, learning rate = 0.0004,                     previous best = 0.3445
+Epoch: 20, Iter: 0, Speed: 0.090 iter/sec, Train loss: 1.830
+Epoch: 20, Iter: 100, Speed: 1.362 iter/sec, Train loss: 2.060
+Epoch: 20, Iter: 200, Speed: 1.344 iter/sec, Train loss: 2.064
+Epoch: 20, Iter: 300, Speed: 1.350 iter/sec, Train loss: 2.073
+Epoch: 20, Iter: 400, Speed: 1.374 iter/sec, Train loss: 2.013
+Epoch: 20, Iter: 500, Speed: 1.380 iter/sec, Train loss: 1.984
+Epoch: 20, Iter: 600, Speed: 1.382 iter/sec, Train loss: 1.996
+Epoch: 20, Iter: 700, Speed: 1.383 iter/sec, Train loss: 2.006
+pixAcc: 0.818, mIoU1: 0.099
+pixAcc: 0.483, mIoU2: 0.165
+Epoch: 20, Time cost: 618.2050240039825
+
+=>Epoch 21, learning rate = 0.0004,                     previous best = 0.3445
+Epoch: 21, Iter: 0, Speed: 0.090 iter/sec, Train loss: 1.693
+Epoch: 21, Iter: 100, Speed: 1.360 iter/sec, Train loss: 1.986
+Epoch: 21, Iter: 200, Speed: 1.339 iter/sec, Train loss: 1.976
+Epoch: 21, Iter: 300, Speed: 1.341 iter/sec, Train loss: 1.987
+Epoch: 21, Iter: 400, Speed: 1.343 iter/sec, Train loss: 2.017
+Epoch: 21, Iter: 500, Speed: 1.348 iter/sec, Train loss: 2.052
+Epoch: 21, Iter: 600, Speed: 1.348 iter/sec, Train loss: 1.998
+Epoch: 21, Iter: 700, Speed: 1.350 iter/sec, Train loss: 2.004
+Epoch: 21, Time cost: 604.0912327766418
+
+=>Epoch 22, learning rate = 0.0004,                     previous best = 0.3445
+Epoch: 22, Iter: 0, Speed: 0.089 iter/sec, Train loss: 1.769
+Epoch: 22, Iter: 100, Speed: 1.357 iter/sec, Train loss: 2.043
+Epoch: 22, Iter: 200, Speed: 1.343 iter/sec, Train loss: 2.018
+Epoch: 22, Iter: 300, Speed: 1.343 iter/sec, Train loss: 1.988
+Epoch: 22, Iter: 400, Speed: 1.344 iter/sec, Train loss: 1.989
+Epoch: 22, Iter: 500, Speed: 1.348 iter/sec, Train loss: 1.971
+Epoch: 22, Iter: 600, Speed: 1.348 iter/sec, Train loss: 1.971
+Epoch: 22, Iter: 700, Speed: 1.378 iter/sec, Train loss: 1.964
+Epoch: 22, Time cost: 600.4862155914307
+
+=>Epoch 23, learning rate = 0.0004,                     previous best = 0.3445
+Epoch: 23, Iter: 0, Speed: 0.088 iter/sec, Train loss: 2.818
+Epoch: 23, Iter: 100, Speed: 1.359 iter/sec, Train loss: 1.791
+Epoch: 23, Iter: 200, Speed: 1.342 iter/sec, Train loss: 1.860
+Epoch: 23, Iter: 300, Speed: 1.343 iter/sec, Train loss: 1.884
+Epoch: 23, Iter: 400, Speed: 1.343 iter/sec, Train loss: 1.918
+Epoch: 23, Iter: 500, Speed: 1.346 iter/sec, Train loss: 1.898
+Epoch: 23, Iter: 600, Speed: 1.357 iter/sec, Train loss: 1.911
+Epoch: 23, Iter: 700, Speed: 1.376 iter/sec, Train loss: 1.907
+Epoch: 23, Time cost: 601.9649240970612
+
+=>Epoch 24, learning rate = 0.0004,                     previous best = 0.3445
+Epoch: 24, Iter: 0, Speed: 0.088 iter/sec, Train loss: 1.710
+Epoch: 24, Iter: 100, Speed: 1.360 iter/sec, Train loss: 2.101
+Epoch: 24, Iter: 200, Speed: 1.339 iter/sec, Train loss: 1.953
+Epoch: 24, Iter: 300, Speed: 1.337 iter/sec, Train loss: 1.919
+Epoch: 24, Iter: 400, Speed: 1.342 iter/sec, Train loss: 1.963
+Epoch: 24, Iter: 500, Speed: 1.347 iter/sec, Train loss: 1.983
+Epoch: 24, Iter: 600, Speed: 1.348 iter/sec, Train loss: 1.933
+Epoch: 24, Iter: 700, Speed: 1.348 iter/sec, Train loss: 1.927
+Epoch: 24, Time cost: 604.6742267608643
+
+=>Epoch 25, learning rate = 0.0004,                     previous best = 0.3445
+Epoch: 25, Iter: 0, Speed: 0.090 iter/sec, Train loss: 0.160
+Epoch: 25, Iter: 100, Speed: 1.356 iter/sec, Train loss: 1.729
+Epoch: 25, Iter: 200, Speed: 1.339 iter/sec, Train loss: 1.775
+Epoch: 25, Iter: 300, Speed: 1.342 iter/sec, Train loss: 1.839
+Epoch: 25, Iter: 400, Speed: 1.345 iter/sec, Train loss: 1.821
+Epoch: 25, Iter: 500, Speed: 1.349 iter/sec, Train loss: 1.782
+Epoch: 25, Iter: 600, Speed: 1.350 iter/sec, Train loss: 1.805
+Epoch: 25, Iter: 700, Speed: 1.346 iter/sec, Train loss: 1.806
+Epoch: 25, Time cost: 604.0653550624847
+
+=>Epoch 26, learning rate = 0.0004,                     previous best = 0.3445
+Epoch: 26, Iter: 0, Speed: 0.088 iter/sec, Train loss: 1.193
+Epoch: 26, Iter: 100, Speed: 1.356 iter/sec, Train loss: 1.768
+Epoch: 26, Iter: 200, Speed: 1.342 iter/sec, Train loss: 1.851
+Epoch: 26, Iter: 300, Speed: 1.341 iter/sec, Train loss: 1.805
+Epoch: 26, Iter: 400, Speed: 1.344 iter/sec, Train loss: 1.807
+Epoch: 26, Iter: 500, Speed: 1.359 iter/sec, Train loss: 1.795
+Epoch: 26, Iter: 600, Speed: 1.380 iter/sec, Train loss: 1.790
+Epoch: 26, Iter: 700, Speed: 1.363 iter/sec, Train loss: 1.782
+Epoch: 26, Time cost: 600.9363834857941
+
+=>Epoch 27, learning rate = 0.0004,                     previous best = 0.3445
+Epoch: 27, Iter: 0, Speed: 0.090 iter/sec, Train loss: 0.950
+Epoch: 27, Iter: 100, Speed: 1.361 iter/sec, Train loss: 1.873
+Epoch: 27, Iter: 200, Speed: 1.350 iter/sec, Train loss: 1.885
+Epoch: 27, Iter: 300, Speed: 1.335 iter/sec, Train loss: 1.820
+Epoch: 27, Iter: 400, Speed: 1.341 iter/sec, Train loss: 1.842
+Epoch: 27, Iter: 500, Speed: 1.345 iter/sec, Train loss: 1.850
+Epoch: 27, Iter: 600, Speed: 1.346 iter/sec, Train loss: 1.832
+Epoch: 27, Iter: 700, Speed: 1.345 iter/sec, Train loss: 1.844
+Epoch: 27, Time cost: 604.1322093009949
+
+=>Epoch 28, learning rate = 0.0004,                     previous best = 0.3445
+Epoch: 28, Iter: 0, Speed: 0.090 iter/sec, Train loss: 1.567
+Epoch: 28, Iter: 100, Speed: 1.361 iter/sec, Train loss: 1.952
+Epoch: 28, Iter: 200, Speed: 1.357 iter/sec, Train loss: 1.913
+Epoch: 28, Iter: 300, Speed: 1.345 iter/sec, Train loss: 1.915
+Epoch: 28, Iter: 400, Speed: 1.356 iter/sec, Train loss: 1.881
+Epoch: 28, Iter: 500, Speed: 1.381 iter/sec, Train loss: 1.856
+Epoch: 28, Iter: 600, Speed: 1.382 iter/sec, Train loss: 1.839
+Epoch: 28, Iter: 700, Speed: 1.383 iter/sec, Train loss: 1.813
+Epoch: 28, Time cost: 594.9560062885284
+
+=>Epoch 29, learning rate = 0.0004,                     previous best = 0.3445
+Epoch: 29, Iter: 0, Speed: 0.090 iter/sec, Train loss: 1.215
+Epoch: 29, Iter: 100, Speed: 1.369 iter/sec, Train loss: 1.707
+Epoch: 29, Iter: 200, Speed: 1.371 iter/sec, Train loss: 1.649
+Epoch: 29, Iter: 300, Speed: 1.373 iter/sec, Train loss: 1.655
+Epoch: 29, Iter: 400, Speed: 1.376 iter/sec, Train loss: 1.705
+Epoch: 29, Iter: 500, Speed: 1.380 iter/sec, Train loss: 1.669
+Epoch: 29, Iter: 600, Speed: 1.381 iter/sec, Train loss: 1.685
+Epoch: 29, Iter: 700, Speed: 1.380 iter/sec, Train loss: 1.692
+Epoch: 29, Time cost: 591.4212348461151
+
+=>Epoch 30, learning rate = 0.0004,                     previous best = 0.3445
+Epoch: 30, Iter: 0, Speed: 0.089 iter/sec, Train loss: 1.477
+Epoch: 30, Iter: 100, Speed: 1.359 iter/sec, Train loss: 1.626
+Epoch: 30, Iter: 200, Speed: 1.343 iter/sec, Train loss: 1.600
+Epoch: 30, Iter: 300, Speed: 1.343 iter/sec, Train loss: 1.613
+Epoch: 30, Iter: 400, Speed: 1.345 iter/sec, Train loss: 1.614
+Epoch: 30, Iter: 500, Speed: 1.346 iter/sec, Train loss: 1.633
+Epoch: 30, Iter: 600, Speed: 1.346 iter/sec, Train loss: 1.641
+Epoch: 30, Iter: 700, Speed: 1.370 iter/sec, Train loss: 1.647
+pixAcc: 0.689, mIoU1: 0.082
+pixAcc: 0.547, mIoU2: 0.233
+Epoch: 30, Time cost: 626.6725225448608
+
+=>Epoch 31, learning rate = 0.0004,                     previous best = 0.3899
+Epoch: 31, Iter: 0, Speed: 0.090 iter/sec, Train loss: 1.737
+Epoch: 31, Iter: 100, Speed: 1.365 iter/sec, Train loss: 1.612
+Epoch: 31, Iter: 200, Speed: 1.344 iter/sec, Train loss: 1.682
+Epoch: 31, Iter: 300, Speed: 1.342 iter/sec, Train loss: 1.650
+Epoch: 31, Iter: 400, Speed: 1.366 iter/sec, Train loss: 1.616
+Epoch: 31, Iter: 500, Speed: 1.362 iter/sec, Train loss: 1.612
+Epoch: 31, Iter: 600, Speed: 1.348 iter/sec, Train loss: 1.638
+Epoch: 31, Iter: 700, Speed: 1.347 iter/sec, Train loss: 1.634
+Epoch: 31, Time cost: 601.408371925354
+
+=>Epoch 32, learning rate = 0.0004,                     previous best = 0.3899
+Epoch: 32, Iter: 0, Speed: 0.087 iter/sec, Train loss: 2.141
+Epoch: 32, Iter: 100, Speed: 1.355 iter/sec, Train loss: 1.506
+Epoch: 32, Iter: 200, Speed: 1.360 iter/sec, Train loss: 1.442
+Epoch: 32, Iter: 300, Speed: 1.346 iter/sec, Train loss: 1.504
+Epoch: 32, Iter: 400, Speed: 1.343 iter/sec, Train loss: 1.497
+Epoch: 32, Iter: 500, Speed: 1.344 iter/sec, Train loss: 1.532
+Epoch: 32, Iter: 600, Speed: 1.350 iter/sec, Train loss: 1.576
+Epoch: 32, Iter: 700, Speed: 1.351 iter/sec, Train loss: 1.593
+Epoch: 32, Time cost: 602.9139802455902
+
+=>Epoch 33, learning rate = 0.0004,                     previous best = 0.3899
+Epoch: 33, Iter: 0, Speed: 0.090 iter/sec, Train loss: 2.283
+Epoch: 33, Iter: 100, Speed: 1.381 iter/sec, Train loss: 1.523
+Epoch: 33, Iter: 200, Speed: 1.360 iter/sec, Train loss: 1.538
+Epoch: 33, Iter: 300, Speed: 1.343 iter/sec, Train loss: 1.523
+Epoch: 33, Iter: 400, Speed: 1.345 iter/sec, Train loss: 1.550
+Epoch: 33, Iter: 500, Speed: 1.348 iter/sec, Train loss: 1.583
+Epoch: 33, Iter: 600, Speed: 1.350 iter/sec, Train loss: 1.593
+Epoch: 33, Iter: 700, Speed: 1.347 iter/sec, Train loss: 1.587
+Epoch: 33, Time cost: 600.8737087249756
+
+=>Epoch 34, learning rate = 0.0004,                     previous best = 0.3899
+Epoch: 34, Iter: 0, Speed: 0.090 iter/sec, Train loss: 1.111
+Epoch: 34, Iter: 100, Speed: 1.360 iter/sec, Train loss: 1.519
+Epoch: 34, Iter: 200, Speed: 1.343 iter/sec, Train loss: 1.452
+Epoch: 34, Iter: 300, Speed: 1.343 iter/sec, Train loss: 1.502
+Epoch: 34, Iter: 400, Speed: 1.343 iter/sec, Train loss: 1.522
+Epoch: 34, Iter: 500, Speed: 1.358 iter/sec, Train loss: 1.551
+Epoch: 34, Iter: 600, Speed: 1.365 iter/sec, Train loss: 1.554
+Epoch: 34, Iter: 700, Speed: 1.349 iter/sec, Train loss: 1.553
+Epoch: 34, Time cost: 600.9877061843872
+
+=>Epoch 35, learning rate = 0.0004,                     previous best = 0.3899
+Epoch: 35, Iter: 0, Speed: 0.089 iter/sec, Train loss: 2.955
+Epoch: 35, Iter: 100, Speed: 1.375 iter/sec, Train loss: 1.516
+Epoch: 35, Iter: 200, Speed: 1.344 iter/sec, Train loss: 1.521
+Epoch: 35, Iter: 300, Speed: 1.368 iter/sec, Train loss: 1.501
+Epoch: 35, Iter: 400, Speed: 1.362 iter/sec, Train loss: 1.489
+Epoch: 35, Iter: 500, Speed: 1.369 iter/sec, Train loss: 1.489
+Epoch: 35, Iter: 600, Speed: 1.349 iter/sec, Train loss: 1.475
+Epoch: 35, Iter: 700, Speed: 1.350 iter/sec, Train loss: 1.483
+Epoch: 35, Time cost: 599.0703179836273
+
+=>Epoch 36, learning rate = 0.0004,                     previous best = 0.3899
+Epoch: 36, Iter: 0, Speed: 0.089 iter/sec, Train loss: 1.138
+Epoch: 36, Iter: 100, Speed: 1.361 iter/sec, Train loss: 1.520
+Epoch: 36, Iter: 200, Speed: 1.340 iter/sec, Train loss: 1.428
+Epoch: 36, Iter: 300, Speed: 1.341 iter/sec, Train loss: 1.389
+Epoch: 36, Iter: 400, Speed: 1.343 iter/sec, Train loss: 1.444
+Epoch: 36, Iter: 500, Speed: 1.347 iter/sec, Train loss: 1.463
+Epoch: 36, Iter: 600, Speed: 1.349 iter/sec, Train loss: 1.467
+Epoch: 36, Iter: 700, Speed: 1.349 iter/sec, Train loss: 1.471
+Epoch: 36, Time cost: 604.0214457511902
+
+=>Epoch 37, learning rate = 0.0004,                     previous best = 0.3899
+Epoch: 37, Iter: 0, Speed: 0.088 iter/sec, Train loss: 3.098
+Epoch: 37, Iter: 100, Speed: 1.368 iter/sec, Train loss: 1.480
+Epoch: 37, Iter: 200, Speed: 1.343 iter/sec, Train loss: 1.481
+Epoch: 37, Iter: 300, Speed: 1.344 iter/sec, Train loss: 1.420
+Epoch: 37, Iter: 400, Speed: 1.346 iter/sec, Train loss: 1.419
+Epoch: 37, Iter: 500, Speed: 1.350 iter/sec, Train loss: 1.411
+Epoch: 37, Iter: 600, Speed: 1.348 iter/sec, Train loss: 1.397
+Epoch: 37, Iter: 700, Speed: 1.347 iter/sec, Train loss: 1.401
+Epoch: 37, Time cost: 603.3491311073303
+
+=>Epoch 38, learning rate = 0.0004,                     previous best = 0.3899
+Epoch: 38, Iter: 0, Speed: 0.090 iter/sec, Train loss: 1.061
+Epoch: 38, Iter: 100, Speed: 1.374 iter/sec, Train loss: nan
+Epoch: 38, Iter: 200, Speed: 1.382 iter/sec, Train loss: nan
+Epoch: 38, Iter: 300, Speed: 1.382 iter/sec, Train loss: nan
+Epoch: 38, Iter: 400, Speed: 1.383 iter/sec, Train loss: nan
+Epoch: 38, Iter: 500, Speed: 1.379 iter/sec, Train loss: nan
+Epoch: 38, Iter: 600, Speed: 1.381 iter/sec, Train loss: nan
+Epoch: 38, Iter: 700, Speed: 1.382 iter/sec, Train loss: nan
+Epoch: 38, Time cost: 589.5184874534607
+
+=>Epoch 39, learning rate = 0.0004,                     previous best = 0.3899
+Epoch: 39, Iter: 0, Speed: 0.090 iter/sec, Train loss: nan
+Epoch: 39, Iter: 100, Speed: 1.391 iter/sec, Train loss: nan
+Epoch: 39, Iter: 200, Speed: 1.384 iter/sec, Train loss: nan
+Epoch: 39, Iter: 300, Speed: 1.384 iter/sec, Train loss: nan
+Epoch: 39, Iter: 400, Speed: 1.382 iter/sec, Train loss: nan
+Epoch: 39, Iter: 500, Speed: 1.380 iter/sec, Train loss: nan
+Epoch: 39, Iter: 600, Speed: 1.384 iter/sec, Train loss: nan
+Epoch: 39, Iter: 700, Speed: 1.384 iter/sec, Train loss: nan
+Epoch: 39, Time cost: 588.0720927715302
+
+=>Epoch 40, learning rate = 0.0003,                     previous best = 0.3899
+Epoch: 40, Iter: 0, Speed: 0.090 iter/sec, Train loss: nan
+Epoch: 40, Iter: 100, Speed: 1.394 iter/sec, Train loss: nan
+Epoch: 40, Iter: 200, Speed: 1.409 iter/sec, Train loss: nan
+Epoch: 40, Iter: 300, Speed: 1.373 iter/sec, Train loss: nan
+Epoch: 40, Iter: 400, Speed: 1.367 iter/sec, Train loss: nan
+Epoch: 40, Iter: 500, Speed: 1.354 iter/sec, Train loss: nan
+Epoch: 40, Iter: 600, Speed: 1.398 iter/sec, Train loss: nan
+Epoch: 40, Iter: 700, Speed: 1.394 iter/sec, Train loss: nan
+pixAcc: 0.000, mIoU1: 0.000
+pixAcc: 0.020, mIoU2: 0.001
+Epoch: 40, Time cost: 610.3444132804871
