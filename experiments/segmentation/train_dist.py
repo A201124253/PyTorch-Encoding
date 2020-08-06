@@ -140,7 +140,7 @@ class Options():
                 'pcontext': 0.001,
                 'ade20k': 0.01,
                 'citys': 0.01,
-                'minc_seg': 0.004
+                'minc_seg': 0.001
             }
             args.lr = lrs[args.dataset.lower()] / 16 * args.batch_size
         print(args)
@@ -206,6 +206,10 @@ def main_worker(gpu, ngpus_per_node, args):
                                 lr=args.lr,
                                 momentum=args.momentum,
                                 weight_decay=args.weight_decay)
+    # optimizer = torch.optim.Adam(params_list,
+    #                             lr=args.lr,
+    #                             # momentum=args.momentum,
+    #                             weight_decay=args.weight_decay)
     # criterions
     criterion = SegmentationLosses(se_loss=args.se_loss,
                                    aux=args.aux,
@@ -222,9 +226,16 @@ def main_worker(gpu, ngpus_per_node, args):
     if args.resume is not None:
         if not os.path.isfile(args.resume):
             raise RuntimeError("=> no checkpoint found at '{}'" .format(args.resume))
+        
         checkpoint = torch.load(args.resume)
         args.start_epoch = checkpoint['epoch']
         model.module.load_state_dict(checkpoint['state_dict'])
+        '''
+        checkpoint = torch.load(args.resume, map_location='cpu')
+        args.start_epoch = checkpoint['epoch']
+        model.module.load_state_dict(checkpoint['state_dict'])
+        model.cuda()
+        '''
         if not args.ft:
             optimizer.load_state_dict(checkpoint['optimizer'])
         best_pred = checkpoint['best_pred']
@@ -237,6 +248,7 @@ def main_worker(gpu, ngpus_per_node, args):
     # lr scheduler
     scheduler = utils.LR_Scheduler_Head(args.lr_scheduler, args.lr,
                                         args.epochs, len(trainloader))
+    # train_losses = [2.855, 2.513, 2.275, 2.128, 2.001, 1.875, 1.855, 1.916, 1.987, 1.915, 1.952]
     train_losses = []
     def training(epoch):
         train_sampler.set_epoch(epoch)
@@ -260,6 +272,14 @@ def main_worker(gpu, ngpus_per_node, args):
                 print('Epoch: {}, Iter: {}, Speed: {:.3f} iter/sec, Train loss: {:.3f}'. \
                       format(epoch, i, iter_per_sec, train_loss / (i + 1)))
         train_losses.append(train_loss/len(trainloader))
+        if epoch > 1:
+            if train_losses[epoch] < train_losses[epoch-1]:
+                utils.save_checkpoint({
+                    'epoch': epoch + 1,
+                    'state_dict': model.module.state_dict(),
+                    'optimizer': optimizer.state_dict(),
+                    'best_pred': new_preds[(epoch-1)//10],
+                    }, args, False, filename='checkpoint_train.pth.tar')
         plt.plot(train_losses)
         plt.xlabel('Epoch')
         plt.ylabel('Train_loss')
@@ -269,6 +289,8 @@ def main_worker(gpu, ngpus_per_node, args):
         plt.savefig('./loss_fig/train_losses.svg')
         plt.close()
     
+    # p_m = [(0.3, 0.05), (0.23, 0.54)]
+    # new_preds = [0.175, 0.392]
     p_m = []
     new_preds = []
     def validation(epoch):
