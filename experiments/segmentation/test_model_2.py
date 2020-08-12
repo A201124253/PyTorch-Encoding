@@ -19,12 +19,14 @@ import torchvision.transforms as transform
 
 import encoding
 
+
+
 # input_transform
 input_transform = transform.Compose([
     transform.ToTensor(),
     transform.Normalize([.485, .456, .406], [.229, .224, .225])])
 
-# Get the model
+# Get the model0,0,0
 # model = encoding.models.get_model('fcn_resnest50_ade', pretrained=True).cuda()
 # model = encoding.models.get_model('deeplab_resnest50_minc', pretrained=True).cuda()
 # model = encoding.models.get_model('fcn_resnest50_minc', pretrained=True).cuda()
@@ -32,8 +34,8 @@ model = encoding.models.get_model('deeplab_resnest101_minc', pretrained=True).cu
 
 # print(model)
 model.eval()
-
-
+SAVENAME = 'deeplab_resnest101_108'
+DATE = '202008121052'
 class image_seg:
 
     def __init__(self):
@@ -46,7 +48,7 @@ class image_seg:
         
         np_arr = np.frombuffer(ros_data.data, np.uint8)
         image_np = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
-        
+        cv2.imwrite(SAVENAME + DATE+'_orig_'+'.png',image_np)
         # convert it to pil format 
         im = cv2.cvtColor(image_np, cv2.COLOR_BGR2RGB)
         im_pil = Image.fromarray(im)
@@ -60,11 +62,11 @@ class image_seg:
         im_pil = im_pil.cuda().unsqueeze(0)
         output = model.evaluate(im_pil)
         predict = torch.max(output, 1)[1].cpu().numpy() + 1
-	# Get color pallete for visualization
+	    # Get color pallete for visualization
         mask = encoding.utils.get_mask_pallete(predict, 'minc_dataset')
         # print(type(mask))
         # print(mask)
-        mask.save('FCN_resnest50_rgb_202008051107.png')
+        mask.save(SAVENAME + DATE +'_rgb_'+'.png')
         # mask.show()
         
         # time.sleep(5)
@@ -74,7 +76,7 @@ class image_seg:
         pil2ros = np.asarray(mask)
 
         pil2ros = cv2.cvtColor(pil2ros, cv2.COLOR_RGB2BGR)
-        cv2.imwrite('FCN_resnest50_gray_202008051107.png',pil2ros)
+        cv2.imwrite(SAVENAME + DATE+'_gray_'+'.png',pil2ros)
         # print(pil2ros.shape)
         
         # show the mask
