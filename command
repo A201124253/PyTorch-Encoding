@@ -9,8 +9,8 @@ python train_dist.py --dataset minc_seg --model deeplab --aux --backbone resnest
 # test model
 roscore
 
-cd ~/materialSeg_ws/src/material_seg/src
-rosbag play -l 2020-06-25-11-37-21.bag
+cd ~/materialSeg_ws/rosbag_data
+rosbag play -l 2020-08-25-17-56-35.bag
 
 cd ~/materialSeg_ws/src/PyTorch-Encoding/experiments/segmentation
-python test_model_2.py
+python test_model_2_deeplab.py

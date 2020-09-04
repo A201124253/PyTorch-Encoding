@@ -6,6 +6,7 @@ from .atten import *
 from .encnet import *
 from .deeplab import *
 from .upernet import *
+from .crfrnn import *
 
 def get_segmentation_model(name, **kwargs):
     models = {
@@ -16,5 +17,6 @@ def get_segmentation_model(name, **kwargs):
         'encnet': get_encnet,
         'upernet': get_upernet,
         'deeplab': get_deeplab,
+        'crfrnn': get_crfrnn,
     }
     return models[name.lower()](**kwargs)

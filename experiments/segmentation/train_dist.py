@@ -140,7 +140,7 @@ class Options():
                 'pcontext': 0.001,
                 'ade20k': 0.01,
                 'citys': 0.01,
-                'minc_seg': 0.001
+                'minc_seg': 0.004
             }
             args.lr = lrs[args.dataset.lower()] / 16 * args.batch_size
         print(args)
@@ -149,6 +149,8 @@ class Options():
 def main():
     args = Options().parse()
     ngpus_per_node = torch.cuda.device_count()
+    print('num of process')
+    print(ngpus_per_node)
     args.world_size = ngpus_per_node * args.world_size
     args.lr = args.lr * args.world_size
     mp.spawn(main_worker, nprocs=ngpus_per_node, args=(ngpus_per_node, args))
@@ -352,7 +354,8 @@ def main_worker(gpu, ngpus_per_node, args):
                 'state_dict': model.module.state_dict(),
                 'optimizer': optimizer.state_dict(),
                 'best_pred': best_pred,
-            }, args, is_best)
+            }, args, is_best, filename='checkpoint_train_{}.pth.tar'.format(epoch + 1))
+            
 
     if args.export:
         if args.gpu == 0:

@@ -45,6 +45,11 @@ class DeepLabV3(BaseNet):
         self.head = DeepLabV3Head(2048, nclass, norm_layer, self._up_kwargs)
         if aux:
             self.auxlayer = FCNHead(1024, nclass, norm_layer)
+        print("number of all parameter is")
+        i=0
+        for p in self.parameters():
+            i+=1
+        print(i)
 
     def forward(self, x):
         _, _, h, w = x.size()

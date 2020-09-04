@@ -30,12 +30,12 @@ input_transform = transform.Compose([
 # model = encoding.models.get_model('fcn_resnest50_ade', pretrained=True).cuda()
 # model = encoding.models.get_model('deeplab_resnest50_minc', pretrained=True).cuda()
 # model = encoding.models.get_model('fcn_resnest50_minc', pretrained=True).cuda()
-model = encoding.models.get_model('deeplab_resnest101_minc', pretrained=True).cuda()
+model = encoding.models.get_model('deeplab_resnet50s_minc', pretrained=True).cuda()
 
 # print(model)
 model.eval()
-SAVENAME = 'deeplab_resnest101_108'
-DATE = '202008121052'
+SAVENAME = 'deeplab_resne50s_120'
+DATE = '20200825'
 class image_seg:
 
     def __init__(self):

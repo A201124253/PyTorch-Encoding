@@ -53,6 +53,7 @@ class FCN(BaseNet):
 
     def forward(self, x):
         imsize = x.size()[2:]
+        print(imsize)
         _, _, c3, c4 = self.base_forward(x)
 
         x = self.head(c4)
@@ -62,6 +63,7 @@ class FCN(BaseNet):
             auxout = self.auxlayer(c3)
             auxout = interpolate(auxout, imsize, **self._up_kwargs)
             outputs.append(auxout)
+        # print(outputs.shape)
         return tuple(outputs)
 
 
@@ -257,6 +259,49 @@ def get_fcn_resnest50_minc(pretrained=False, root='~/.encoding/models', **kwargs
 
         model.load_state_dict(checkpoint['state_dict'])
 
-        print(model)
+        # print(model)
+        
+    return model
+    
+def get_fcn_resnet50s_minc(pretrained=False, root='~/.encoding/models', **kwargs):
+    r"""DeepLabV3 model from the paper `"Context Encoding for Semantic Segmentation"
+    <https://arxiv.org/pdf/1803.08904.pdf>`_
+
+    Parameters
+    ----------
+    pretrained : bool, default False
+        Whether to load the pretrained weights for model.
+    root : str, default '~/.encoding/models'
+        Location for keeping the model parameters.
+
+
+    Examples
+    --------
+    >>> model = get_deeplab_resnest269_pcontext(pretrained=True)
+    >>> print(model)
+    """
+
+
+
+    model = get_fcn(dataset='minc_seg',
+                        backbone='resnet50s', aux=True,
+                        se_loss=False, norm_layer=DistSyncBatchNorm,
+                        base_size=520, crop_size=480)
+
+    if pretrained:
+        root = os.path.expanduser(root)
+        checkpoint = torch.load(root+'/deeplab_resnest101_minc_seg.pth.tar')
+        print('---------------------------------')
+        print(checkpoint['epoch'])
+        print('---------------------------------')
+    
+        print(checkpoint['optimizer'])
+        print('---------------------------------')
+        print(checkpoint['best_pred'])
+        print('---------------------------------')
+
+        model.load_state_dict(checkpoint['state_dict'])
+
+        # print(model)
         
     return model

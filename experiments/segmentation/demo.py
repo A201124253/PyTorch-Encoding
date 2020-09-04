@@ -1,8 +1,12 @@
 import torch
-import encoding
+import sys
+# sys.path.insert(0,'/home/lzj/anaconda3/envs/materialseg/lib/python3.7/site-packages')
 
+import encoding
+print('encoding')
 # Get the model
 model = encoding.models.get_model('fcn_resnest50_ade', pretrained=True).cuda()
+
 model.eval()
 
 # Prepare the image
@@ -14,8 +18,12 @@ img = encoding.utils.load_image(
 
 # Make prediction
 output = model.evaluate(img)
+print("output shape is")
+print(output.shape)
 predict = torch.max(output, 1)[1].cpu().numpy() + 1
-
+print("predict.shape is")
+print(predict.shape)
+print(predict)
 # Get color pallete for visualization
 mask = encoding.utils.get_mask_pallete(predict, 'ade20k')
 mask.save('output.png')

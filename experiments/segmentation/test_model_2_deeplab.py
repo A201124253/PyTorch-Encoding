@@ -18,7 +18,7 @@ import torch
 import torchvision.transforms as transform
 
 import encoding
-
+print('after import')
 
 
 # input_transform
@@ -29,12 +29,13 @@ input_transform = transform.Compose([
 # Get the model0,0,0
 # model = encoding.models.get_model('fcn_resnest50_ade', pretrained=True).cuda()
 # model = encoding.models.get_model('deeplab_resnest50_minc', pretrained=True).cuda()
-# model = encoding.models.get_model('fcn_resnest50_minc', pretrained=True).cuda()
-model = encoding.models.get_model('deeplab_resnest101_minc', pretrained=True).cuda()
+model = encoding.models.get_model('fcn_resnest50_minc', pretrained=True).cuda()
+# model = encoding.models.get_model('deeplab_resnest101_minc', pretrained=True).cuda()
+# model = encoding.models.get_model('deeplab_resnet50s_minc', pretrained=True).cuda()
 
 # print(model)
 model.eval()
-SAVENAME = 'deeplab_resnest101_108'
+SAVENAME = 'deeplab_resnet50s_deepten'
 DATE = '202008181233'
 mincpallete = [0,0,0, 0,192,0,	129,0,0,	128,128,0,	3,65,142,	0,0,127,	127,0,127,	0,128,128,	150,150,150,	65,0,0,	192,0,129,	65,129,0,	255,255,255,	65,0,128,	100,70,50,	50,65,100, 200,127,129,	0,65,0,	129,65,0,	8,250,8,	127,192,0,	0,65,129,	65,128,128,	192,127,0]
 
@@ -43,7 +44,7 @@ class image_seg:
     def __init__(self):
         self.image_pub = rospy.Publisher("material_segmentation", CompressedImage, queue_size=1)
         #print("subscriber")
-        self.image_sub = rospy.Subscriber('/camera/color/image_raw/compressed', CompressedImage, self.callback, queue_size = 1)
+        self.image_sub = rospy.Subscriber('/camera/color/image_raw/compressed', CompressedImage, self.callback, queue_size = 10)
         
     
     def callback(self, ros_data):
@@ -55,7 +56,7 @@ class image_seg:
         im = cv2.cvtColor(image_np, cv2.COLOR_BGR2RGB)
         im_pil = Image.fromarray(im)
         # im_pil = im_pil.convert('RGB')
-        
+
         transform = input_transform
         im_pil = transform(im_pil)
         # print(type(img))
@@ -75,6 +76,7 @@ class image_seg:
 
         # mask.close()
 
+
         pil2ros = np.asarray(mask)
         
         pil2ros3_shape = np.insert(pil2ros.shape,2,[3])
@@ -87,8 +89,13 @@ class image_seg:
         for i in range(24):
             pil2ros3 = np.where(pil2ros3==((i,i,i)),((mincpallete[i*3+2],mincpallete[i*3+1],mincpallete[i*3])),pil2ros3)
         pil2ros3 = np.array(pil2ros3, dtype=np.uint8)
-        cv2.imshow("window",pil2ros3)
-        k = cv2.waitKey(2)
+
+        cv2.imshow("original image", image_np)
+        k1 = cv2.waitKey(2)
+        
+        cv2.imshow("segmentation image",pil2ros3)
+        k2 = cv2.waitKey(2)
+        
         '''
         pil2ros = cv2.cvtColor(pil2ros, cv2.COLOR_RGB2BGR)
         cv2.imwrite(SAVENAME + DATE+'_gray_'+'.png',pil2ros)
