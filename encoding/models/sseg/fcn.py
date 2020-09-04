@@ -10,6 +10,7 @@ import torch
 import torch.nn as nn
 from torch.nn.functional import interpolate
 from ...nn import ConcurrentModule, SyncBatchNorm
+
 from encoding.nn import SegmentationLosses, DistSyncBatchNorm
 # infer number of classes
 from ...datasets import datasets, acronyms
@@ -17,7 +18,7 @@ from ...datasets import datasets, acronyms
 from .base import BaseNet
 
 __all__ = ['FCN', 'get_fcn', 'get_fcn_resnet50_pcontext', 'get_fcn_resnet50_ade',
-           'get_fcn_resnest50_ade', 'get_fcn_resnest50_pcontext']
+           'get_fcn_resnest50_ade', 'get_fcn_resnest50_pcontext', 'get_fcn_resnest50_minc', 'get_fcn_resnet50_minc']
 
 class FCN(BaseNet):
     r"""Fully Convolutional Networks for Semantic Segmentation
@@ -51,19 +52,27 @@ class FCN(BaseNet):
         if aux:
             self.auxlayer = FCNHead(1024, nclass, norm_layer)
 
+        print("number of all parameter is")
+        i=0
+        for p in self.parameters():
+            i+=1
+        print(i)
+
     def forward(self, x):
         imsize = x.size()[2:]
-        print(imsize)
+        # print(imsize)
         _, _, c3, c4 = self.base_forward(x)
 
         x = self.head(c4)
         x = interpolate(x, imsize, **self._up_kwargs)
         outputs = [x]
+        # print(len(outputs[0]))
+        # print(outputs[0].shape)
         if self.aux:
             auxout = self.auxlayer(c3)
             auxout = interpolate(auxout, imsize, **self._up_kwargs)
             outputs.append(auxout)
-        # print(outputs.shape)
+        # print(len(outputs))
         return tuple(outputs)
 
 
@@ -220,6 +229,53 @@ def get_fcn_resnest50_pcontext(pretrained=False, root='~/.encoding/models', **kw
     kwargs['aux'] = True
     return get_fcn('pcontext', 'resnest50', pretrained, root=root, **kwargs)
 
+'''
+def get_fcn_resnest50_pcontext(pretrained=False, root='~/.encoding/models', **kwargs):
+    r"""DeepLabV3 model from the paper `"Context Encoding for Semantic Segmentation"
+    <https://arxiv.org/pdf/1803.08904.pdf>`_
+
+    Parameters
+    ----------
+    pretrained : bool, default False
+        Whether to load the pretrained weights for model.
+    root : str, default '~/.encoding/models'
+        Location for keeping the model parameters.
+
+
+    Examples
+    --------
+    >>> model = get_deeplab_resnest269_pcontext(pretrained=True)
+    >>> print(model)
+    """
+    # model = get_fcn('ade20k', 'resnest50', pretrained, root=root, **kwargs)
+
+    
+    model = get_fcn(dataset='minc_seg',
+                        backbone='resnest50', aux=True,
+                        se_loss=False, norm_layer=DistSyncBatchNorm,
+                        base_size=520, crop_size=480)
+    
+
+    if pretrained:
+        root = os.path.expanduser(root)
+        checkpoint = torch.load(root+'/fcn_resnest50_minc.pth.tar')
+        print('---------------------------------')
+        print(checkpoint['epoch'])
+        print('---------------------------------')
+    
+        print(checkpoint['optimizer'])
+        print('---------------------------------')
+        print(checkpoint['best_pred'])
+        print('---------------------------------')
+
+        model.load_state_dict(checkpoint['state_dict'])
+
+        # print(model)
+        
+    return model
+
+'''
+
 def get_fcn_resnest50_minc(pretrained=False, root='~/.encoding/models', **kwargs):
     r"""DeepLabV3 model from the paper `"Context Encoding for Semantic Segmentation"
     <https://arxiv.org/pdf/1803.08904.pdf>`_
@@ -237,23 +293,24 @@ def get_fcn_resnest50_minc(pretrained=False, root='~/.encoding/models', **kwargs
     >>> model = get_deeplab_resnest269_pcontext(pretrained=True)
     >>> print(model)
     """
+    # model = get_fcn('ade20k', 'resnest50', pretrained, root=root, **kwargs)
 
-
-
+    # 
     model = get_fcn(dataset='minc_seg',
                         backbone='resnest50', aux=True,
                         se_loss=False, norm_layer=DistSyncBatchNorm,
                         base_size=520, crop_size=480)
+    
 
     if pretrained:
         root = os.path.expanduser(root)
-        checkpoint = torch.load(root+'/deeplab_resnest101_minc_seg.pth.tar')
+        checkpoint = torch.load(root+'/fcn_resnest50_minc.pth.tar')
         print('---------------------------------')
         print(checkpoint['epoch'])
         print('---------------------------------')
     
-        print(checkpoint['optimizer'])
-        print('---------------------------------')
+        # print(checkpoint['optimizer'])
+        # print('---------------------------------')
         print(checkpoint['best_pred'])
         print('---------------------------------')
 
@@ -262,8 +319,8 @@ def get_fcn_resnest50_minc(pretrained=False, root='~/.encoding/models', **kwargs
         # print(model)
         
     return model
-    
-def get_fcn_resnet50s_minc(pretrained=False, root='~/.encoding/models', **kwargs):
+
+def get_fcn_resnet50_minc(pretrained=False, root='~/.encoding/models', **kwargs):
     r"""DeepLabV3 model from the paper `"Context Encoding for Semantic Segmentation"
     <https://arxiv.org/pdf/1803.08904.pdf>`_
 
@@ -280,23 +337,27 @@ def get_fcn_resnet50s_minc(pretrained=False, root='~/.encoding/models', **kwargs
     >>> model = get_deeplab_resnest269_pcontext(pretrained=True)
     >>> print(model)
     """
+    # model = get_fcn('ade20k', 'resnest50', pretrained, root=root, **kwargs)
 
-
-
+    # 
     model = get_fcn(dataset='minc_seg',
                         backbone='resnet50s', aux=True,
                         se_loss=False, norm_layer=DistSyncBatchNorm,
                         base_size=520, crop_size=480)
+    
 
     if pretrained:
         root = os.path.expanduser(root)
-        checkpoint = torch.load(root+'/deeplab_resnest101_minc_seg.pth.tar')
+        # childdir = '/transfer_50s_FCN_aux'
+        childdir = '/resnet50s_FCN_aux'
+        # checkpoint = torch.load(root +'/fcn_resnest50_minc.pth.tar')
+        checkpoint = torch.load(root+childdir+'/model_best.pth.tar')
         print('---------------------------------')
         print(checkpoint['epoch'])
         print('---------------------------------')
     
-        print(checkpoint['optimizer'])
-        print('---------------------------------')
+        # print(checkpoint['optimizer'])
+        # print('---------------------------------')
         print(checkpoint['best_pred'])
         print('---------------------------------')
 

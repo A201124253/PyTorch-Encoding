@@ -23,24 +23,24 @@ class CrfRnnNet(DeepLabV3):
     """
 
     def __init__(self, nclass, backbone, transfer=True, **kwargs):
-        print('here is 1')
-        super(CrfRnnNet, self).__init__(nclass=nclass, backbone=backbone,aux=True, se_loss=False, norm_layer=nn.BatchNorm2d, transfer=False, **kwargs)
+        # print('here is 1')
+        super(CrfRnnNet, self).__init__(nclass=nclass, backbone=backbone, **kwargs)
         if transfer:
             i=0            
             for p in self.parameters():
                 p.requires_grad = False
                 i+=1
-            print("parameter number of no grad is")
-            print(i)
+            # print("parameter number of no grad is")
+            # print(i)
         self.crfrnn = CrfRnn(num_labels=nclass, num_iterations=10)
-        print('here is 2')
+        # print('here is 2')
         i=0            
         for p in self.parameters():
             i+=1
             # if i>289:
             #     print(p)
-        print("parameter number is")
-        print(i)
+        # print("parameter number is")
+        # print(i)
 
     def forward(self, image):
         _, _, h, w = image.size()
@@ -63,7 +63,7 @@ crn = CrfRnnNet(nclass=23, backbone='resnest50')
 # print('create')
 
 
-def get_crfrnn(dataset='minc_seg', backbone='resnest50', pretrained=False,
+def get_crfrnn(dataset='minc_dataset', backbone='resnest50', pretrained=False,
             root='~/.encoding/models', **kwargs):
     # infer number of classes
     from ...datasets import datasets, acronyms
