@@ -1,0 +1,590 @@
+python train_dist_backbone.py --dataset minc_seg --aux --model fcn --backbone resnet50s --batch-size 4
+Namespace(aux=True, aux_weight=0.2, backbone='resnet50s', base_size=520, batch_size=4, checkname='default', crop_size=480, dataset='minc_seg', dist_backend='nccl', dist_url='tcp://localhost:23456', epochs=80, eval=False, export=None, ft=False, lr=0.001, lr_scheduler='poly', model='fcn', model_zoo=None, momentum=0.9, rank=0, rectify=False, rectify_avg=False, resume=None, se_loss=False, se_weight=0.2, seed=1, start_epoch=0, test_batch_size=16, test_folder=None, test_val=False, train_split='train', transfer=False, weight_decay=0.0001, workers=8, world_size=1)
+rank: 0 / 1
+BaseDataset: base_size 520, crop_size 480
+/home/lzj/.encoding/data/minc_dataset/images/training
+number of all parameter is
+175
+Using poly LR scheduler with warm-up epochs of 0!
+Starting Epoch: 0
+Total Epoches: 80
+
+=>Epoch 0, learning rate = 0.0010,                     previous best = 0.0000
+Epoch: 0, Iter: 0, Speed: 0.046 iter/sec, Train loss: 3.745
+Epoch: 0, Iter: 100, Speed: 1.833 iter/sec, Train loss: 3.082
+Epoch: 0, Iter: 200, Speed: 1.797 iter/sec, Train loss: 2.695
+Epoch: 0, Iter: 300, Speed: 1.756 iter/sec, Train loss: 2.486
+pixAcc: 0.582, mIoU1: 0.121
+pixAcc: 0.573, mIoU2: 0.250
+Epoch: 0, Time cost: 261.32895374298096
+
+=>Epoch 1, learning rate = 0.0010,                     previous best = 0.4117
+Epoch: 1, Iter: 0, Speed: 0.061 iter/sec, Train loss: 3.674
+Epoch: 1, Iter: 100, Speed: 1.773 iter/sec, Train loss: 1.823
+Epoch: 1, Iter: 200, Speed: 1.714 iter/sec, Train loss: 1.898
+Epoch: 1, Iter: 300, Speed: 1.705 iter/sec, Train loss: 1.853
+Epoch: 1, Time cost: 247.86806297302246
+
+=>Epoch 2, learning rate = 0.0010,                     previous best = 0.4117
+Epoch: 2, Iter: 0, Speed: 0.061 iter/sec, Train loss: 0.864
+Epoch: 2, Iter: 100, Speed: 1.741 iter/sec, Train loss: 1.578
+Epoch: 2, Iter: 200, Speed: 1.696 iter/sec, Train loss: 1.556
+Epoch: 2, Iter: 300, Speed: 1.701 iter/sec, Train loss: 1.578
+Epoch: 2, Time cost: 249.94465804100037
+
+=>Epoch 3, learning rate = 0.0010,                     previous best = 0.4117
+Epoch: 3, Iter: 0, Speed: 0.063 iter/sec, Train loss: 1.456
+Epoch: 3, Iter: 100, Speed: 1.741 iter/sec, Train loss: 1.502
+Epoch: 3, Iter: 200, Speed: 1.687 iter/sec, Train loss: 1.490
+Epoch: 3, Iter: 300, Speed: 1.694 iter/sec, Train loss: 1.477
+Epoch: 3, Time cost: 250.27855944633484
+
+=>Epoch 4, learning rate = 0.0010,                     previous best = 0.4117
+Epoch: 4, Iter: 0, Speed: 0.062 iter/sec, Train loss: 1.448
+Epoch: 4, Iter: 100, Speed: 1.741 iter/sec, Train loss: 1.249
+Epoch: 4, Iter: 200, Speed: 1.688 iter/sec, Train loss: 1.262
+Epoch: 4, Iter: 300, Speed: 1.697 iter/sec, Train loss: 1.316
+Epoch: 4, Time cost: 250.1900098323822
+
+=>Epoch 5, learning rate = 0.0009,                     previous best = 0.4117
+Epoch: 5, Iter: 0, Speed: 0.061 iter/sec, Train loss: 0.951
+Epoch: 5, Iter: 100, Speed: 1.740 iter/sec, Train loss: 1.177
+Epoch: 5, Iter: 200, Speed: 1.688 iter/sec, Train loss: 1.201
+Epoch: 5, Iter: 300, Speed: 1.698 iter/sec, Train loss: 1.227
+Epoch: 5, Time cost: 250.55528569221497
+
+=>Epoch 6, learning rate = 0.0009,                     previous best = 0.4117
+Epoch: 6, Iter: 0, Speed: 0.063 iter/sec, Train loss: 1.411
+Epoch: 6, Iter: 100, Speed: 1.740 iter/sec, Train loss: 1.064
+Epoch: 6, Iter: 200, Speed: 1.689 iter/sec, Train loss: 1.044
+Epoch: 6, Iter: 300, Speed: 1.698 iter/sec, Train loss: 1.064
+Epoch: 6, Time cost: 249.72268056869507
+
+=>Epoch 7, learning rate = 0.0009,                     previous best = 0.4117
+Epoch: 7, Iter: 0, Speed: 0.061 iter/sec, Train loss: 0.855
+Epoch: 7, Iter: 100, Speed: 1.744 iter/sec, Train loss: 0.952
+Epoch: 7, Iter: 200, Speed: 1.694 iter/sec, Train loss: 0.947
+Epoch: 7, Iter: 300, Speed: 1.697 iter/sec, Train loss: 0.986
+Epoch: 7, Time cost: 250.11916756629944
+
+=>Epoch 8, learning rate = 0.0009,                     previous best = 0.4117
+Epoch: 8, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.721
+Epoch: 8, Iter: 100, Speed: 1.745 iter/sec, Train loss: 0.877
+Epoch: 8, Iter: 200, Speed: 1.697 iter/sec, Train loss: 0.952
+Epoch: 8, Iter: 300, Speed: 1.698 iter/sec, Train loss: 0.943
+Epoch: 8, Time cost: 249.68713784217834
+
+=>Epoch 9, learning rate = 0.0009,                     previous best = 0.4117
+Epoch: 9, Iter: 0, Speed: 0.063 iter/sec, Train loss: 1.128
+Epoch: 9, Iter: 100, Speed: 1.746 iter/sec, Train loss: 0.889
+Epoch: 9, Iter: 200, Speed: 1.699 iter/sec, Train loss: 0.888
+Epoch: 9, Iter: 300, Speed: 1.698 iter/sec, Train loss: 0.867
+Epoch: 9, Time cost: 249.47134137153625
+
+=>Epoch 10, learning rate = 0.0009,                     previous best = 0.4117
+Epoch: 10, Iter: 0, Speed: 0.062 iter/sec, Train loss: 1.017
+Epoch: 10, Iter: 100, Speed: 1.746 iter/sec, Train loss: 0.816
+Epoch: 10, Iter: 200, Speed: 1.698 iter/sec, Train loss: 0.779
+Epoch: 10, Iter: 300, Speed: 1.699 iter/sec, Train loss: 0.789
+pixAcc: 0.795, mIoU1: 0.212
+pixAcc: 0.745, mIoU2: 0.474
+Epoch: 10, Time cost: 264.5478699207306
+
+=>Epoch 11, learning rate = 0.0009,                     previous best = 0.6095
+Epoch: 11, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.312
+Epoch: 11, Iter: 100, Speed: 1.751 iter/sec, Train loss: 0.782
+Epoch: 11, Iter: 200, Speed: 1.700 iter/sec, Train loss: 0.758
+Epoch: 11, Iter: 300, Speed: 1.698 iter/sec, Train loss: 0.754
+Epoch: 11, Time cost: 249.4504816532135
+
+=>Epoch 12, learning rate = 0.0009,                     previous best = 0.6095
+Epoch: 12, Iter: 0, Speed: 0.061 iter/sec, Train loss: 1.013
+Epoch: 12, Iter: 100, Speed: 1.747 iter/sec, Train loss: 0.766
+Epoch: 12, Iter: 200, Speed: 1.698 iter/sec, Train loss: 0.719
+Epoch: 12, Iter: 300, Speed: 1.696 iter/sec, Train loss: 0.745
+Epoch: 12, Time cost: 250.00093531608582
+
+=>Epoch 13, learning rate = 0.0009,                     previous best = 0.6095
+Epoch: 13, Iter: 0, Speed: 0.060 iter/sec, Train loss: 0.563
+Epoch: 13, Iter: 100, Speed: 1.748 iter/sec, Train loss: 0.650
+Epoch: 13, Iter: 200, Speed: 1.700 iter/sec, Train loss: 0.688
+Epoch: 13, Iter: 300, Speed: 1.698 iter/sec, Train loss: 0.681
+Epoch: 13, Time cost: 250.12802577018738
+
+=>Epoch 14, learning rate = 0.0008,                     previous best = 0.6095
+Epoch: 14, Iter: 0, Speed: 0.063 iter/sec, Train loss: 0.579
+Epoch: 14, Iter: 100, Speed: 1.747 iter/sec, Train loss: 0.694
+Epoch: 14, Iter: 200, Speed: 1.701 iter/sec, Train loss: 0.654
+Epoch: 14, Iter: 300, Speed: 1.698 iter/sec, Train loss: 0.620
+Epoch: 14, Time cost: 249.38350653648376
+
+=>Epoch 15, learning rate = 0.0008,                     previous best = 0.6095
+Epoch: 15, Iter: 0, Speed: 0.061 iter/sec, Train loss: 0.194
+Epoch: 15, Iter: 100, Speed: 1.746 iter/sec, Train loss: 0.472
+Epoch: 15, Iter: 200, Speed: 1.700 iter/sec, Train loss: 0.545
+Epoch: 15, Iter: 300, Speed: 1.698 iter/sec, Train loss: 0.550
+Epoch: 15, Time cost: 250.07428240776062
+
+=>Epoch 16, learning rate = 0.0008,                     previous best = 0.6095
+Epoch: 16, Iter: 0, Speed: 0.063 iter/sec, Train loss: 0.621
+Epoch: 16, Iter: 100, Speed: 1.747 iter/sec, Train loss: 0.648
+Epoch: 16, Iter: 200, Speed: 1.698 iter/sec, Train loss: 0.590
+Epoch: 16, Iter: 300, Speed: 1.697 iter/sec, Train loss: 0.588
+Epoch: 16, Time cost: 248.7565233707428
+
+=>Epoch 17, learning rate = 0.0008,                     previous best = 0.6095
+Epoch: 17, Iter: 0, Speed: 0.061 iter/sec, Train loss: 0.638
+Epoch: 17, Iter: 100, Speed: 1.745 iter/sec, Train loss: 0.629
+Epoch: 17, Iter: 200, Speed: 1.697 iter/sec, Train loss: 0.557
+Epoch: 17, Iter: 300, Speed: 1.698 iter/sec, Train loss: 0.570
+Epoch: 17, Time cost: 250.50637793540955
+
+=>Epoch 18, learning rate = 0.0008,                     previous best = 0.6095
+Epoch: 18, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.544
+Epoch: 18, Iter: 100, Speed: 1.747 iter/sec, Train loss: 0.601
+Epoch: 18, Iter: 200, Speed: 1.700 iter/sec, Train loss: 0.519
+Epoch: 18, Iter: 300, Speed: 1.699 iter/sec, Train loss: 0.539
+Epoch: 18, Time cost: 249.4855375289917
+
+=>Epoch 19, learning rate = 0.0008,                     previous best = 0.6095
+Epoch: 19, Iter: 0, Speed: 0.063 iter/sec, Train loss: 0.648
+Epoch: 19, Iter: 100, Speed: 1.742 iter/sec, Train loss: 0.576
+Epoch: 19, Iter: 200, Speed: 1.700 iter/sec, Train loss: 0.549
+Epoch: 19, Iter: 300, Speed: 1.698 iter/sec, Train loss: 0.527
+Epoch: 19, Time cost: 248.484628200531
+
+=>Epoch 20, learning rate = 0.0008,                     previous best = 0.6095
+Epoch: 20, Iter: 0, Speed: 0.063 iter/sec, Train loss: 0.289
+Epoch: 20, Iter: 100, Speed: 1.747 iter/sec, Train loss: 0.521
+Epoch: 20, Iter: 200, Speed: 1.700 iter/sec, Train loss: 0.505
+Epoch: 20, Iter: 300, Speed: 1.700 iter/sec, Train loss: 0.489
+pixAcc: 0.624, mIoU1: 0.184
+pixAcc: 0.748, mIoU2: 0.473
+Epoch: 20, Time cost: 264.0330526828766
+
+=>Epoch 21, learning rate = 0.0008,                     previous best = 0.6103
+Epoch: 21, Iter: 0, Speed: 0.063 iter/sec, Train loss: 0.585
+Epoch: 21, Iter: 100, Speed: 1.751 iter/sec, Train loss: 0.452
+Epoch: 21, Iter: 200, Speed: 1.699 iter/sec, Train loss: 0.459
+Epoch: 21, Iter: 300, Speed: 1.698 iter/sec, Train loss: 0.450
+Epoch: 21, Time cost: 249.3418562412262
+
+=>Epoch 22, learning rate = 0.0007,                     previous best = 0.6103
+Epoch: 22, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.259
+Epoch: 22, Iter: 100, Speed: 1.748 iter/sec, Train loss: 0.407
+Epoch: 22, Iter: 200, Speed: 1.699 iter/sec, Train loss: 0.353
+Epoch: 22, Iter: 300, Speed: 1.698 iter/sec, Train loss: 0.385
+Epoch: 22, Time cost: 249.59118127822876
+
+=>Epoch 23, learning rate = 0.0007,                     previous best = 0.6103
+Epoch: 23, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.187
+Epoch: 23, Iter: 100, Speed: 1.746 iter/sec, Train loss: 0.354
+Epoch: 23, Iter: 200, Speed: 1.699 iter/sec, Train loss: 0.368
+Epoch: 23, Iter: 300, Speed: 1.699 iter/sec, Train loss: 0.375
+Epoch: 23, Time cost: 249.50488567352295
+
+=>Epoch 24, learning rate = 0.0007,                     previous best = 0.6103
+Epoch: 24, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.208
+Epoch: 24, Iter: 100, Speed: 1.748 iter/sec, Train loss: 0.416
+Epoch: 24, Iter: 200, Speed: 1.700 iter/sec, Train loss: 0.394
+Epoch: 24, Iter: 300, Speed: 1.699 iter/sec, Train loss: 0.391
+Epoch: 24, Time cost: 248.57153487205505
+
+=>Epoch 25, learning rate = 0.0007,                     previous best = 0.6103
+Epoch: 25, Iter: 0, Speed: 0.063 iter/sec, Train loss: 0.367
+Epoch: 25, Iter: 100, Speed: 1.740 iter/sec, Train loss: 0.344
+Epoch: 25, Iter: 200, Speed: 1.701 iter/sec, Train loss: 0.338
+Epoch: 25, Iter: 300, Speed: 1.701 iter/sec, Train loss: 0.363
+Epoch: 25, Time cost: 249.31270122528076
+
+=>Epoch 26, learning rate = 0.0007,                     previous best = 0.6103
+Epoch: 26, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.386
+Epoch: 26, Iter: 100, Speed: 1.747 iter/sec, Train loss: 0.275
+Epoch: 26, Iter: 200, Speed: 1.700 iter/sec, Train loss: 0.306
+Epoch: 26, Iter: 300, Speed: 1.699 iter/sec, Train loss: 0.309
+Epoch: 26, Time cost: 249.6005425453186
+
+=>Epoch 27, learning rate = 0.0007,                     previous best = 0.6103
+Epoch: 27, Iter: 0, Speed: 0.061 iter/sec, Train loss: 0.249
+Epoch: 27, Iter: 100, Speed: 1.748 iter/sec, Train loss: 0.266
+Epoch: 27, Iter: 200, Speed: 1.700 iter/sec, Train loss: 0.287
+Epoch: 27, Iter: 300, Speed: 1.698 iter/sec, Train loss: 0.308
+Epoch: 27, Time cost: 248.901611328125
+
+=>Epoch 28, learning rate = 0.0007,                     previous best = 0.6103
+Epoch: 28, Iter: 0, Speed: 0.063 iter/sec, Train loss: 0.175
+Epoch: 28, Iter: 100, Speed: 1.740 iter/sec, Train loss: 0.338
+Epoch: 28, Iter: 200, Speed: 1.701 iter/sec, Train loss: 0.345
+Epoch: 28, Iter: 300, Speed: 1.700 iter/sec, Train loss: 0.332
+Epoch: 28, Time cost: 249.35885906219482
+
+=>Epoch 29, learning rate = 0.0007,                     previous best = 0.6103
+Epoch: 29, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.237
+Epoch: 29, Iter: 100, Speed: 1.748 iter/sec, Train loss: 0.260
+Epoch: 29, Iter: 200, Speed: 1.698 iter/sec, Train loss: 0.285
+Epoch: 29, Iter: 300, Speed: 1.698 iter/sec, Train loss: 0.306
+Epoch: 29, Time cost: 249.57527327537537
+
+=>Epoch 30, learning rate = 0.0007,                     previous best = 0.6103
+Epoch: 30, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.299
+Epoch: 30, Iter: 100, Speed: 1.744 iter/sec, Train loss: 0.275
+Epoch: 30, Iter: 200, Speed: 1.698 iter/sec, Train loss: 0.280
+Epoch: 30, Iter: 300, Speed: 1.697 iter/sec, Train loss: 0.295
+pixAcc: 0.802, mIoU1: 0.218
+pixAcc: 0.752, mIoU2: 0.487
+Epoch: 30, Time cost: 264.03567910194397
+
+=>Epoch 31, learning rate = 0.0006,                     previous best = 0.6193
+Epoch: 31, Iter: 0, Speed: 0.063 iter/sec, Train loss: 0.209
+Epoch: 31, Iter: 100, Speed: 1.747 iter/sec, Train loss: 0.312
+Epoch: 31, Iter: 200, Speed: 1.701 iter/sec, Train loss: 0.318
+Epoch: 31, Iter: 300, Speed: 1.699 iter/sec, Train loss: 0.311
+Epoch: 31, Time cost: 249.43769025802612
+
+=>Epoch 32, learning rate = 0.0006,                     previous best = 0.6193
+Epoch: 32, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.176
+Epoch: 32, Iter: 100, Speed: 1.749 iter/sec, Train loss: 0.215
+Epoch: 32, Iter: 200, Speed: 1.701 iter/sec, Train loss: 0.250
+Epoch: 32, Iter: 300, Speed: 1.700 iter/sec, Train loss: 0.269
+Epoch: 32, Time cost: 249.44636392593384
+
+=>Epoch 33, learning rate = 0.0006,                     previous best = 0.6193
+Epoch: 33, Iter: 0, Speed: 0.061 iter/sec, Train loss: 0.310
+Epoch: 33, Iter: 100, Speed: 1.749 iter/sec, Train loss: 0.259
+Epoch: 33, Iter: 200, Speed: 1.701 iter/sec, Train loss: 0.254
+Epoch: 33, Iter: 300, Speed: 1.699 iter/sec, Train loss: 0.241
+Epoch: 33, Time cost: 249.79410696029663
+
+=>Epoch 34, learning rate = 0.0006,                     previous best = 0.6193
+Epoch: 34, Iter: 0, Speed: 0.061 iter/sec, Train loss: 0.149
+Epoch: 34, Iter: 100, Speed: 1.749 iter/sec, Train loss: 0.246
+Epoch: 34, Iter: 200, Speed: 1.702 iter/sec, Train loss: 0.255
+Epoch: 34, Iter: 300, Speed: 1.700 iter/sec, Train loss: 0.269
+Epoch: 34, Time cost: 248.73587226867676
+
+=>Epoch 35, learning rate = 0.0006,                     previous best = 0.6193
+Epoch: 35, Iter: 0, Speed: 0.061 iter/sec, Train loss: 0.084
+Epoch: 35, Iter: 100, Speed: 1.748 iter/sec, Train loss: 0.229
+Epoch: 35, Iter: 200, Speed: 1.701 iter/sec, Train loss: 0.225
+Epoch: 35, Iter: 300, Speed: 1.700 iter/sec, Train loss: 0.237
+Epoch: 35, Time cost: 249.7250337600708
+
+=>Epoch 36, learning rate = 0.0006,                     previous best = 0.6193
+Epoch: 36, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.346
+Epoch: 36, Iter: 100, Speed: 1.750 iter/sec, Train loss: 0.214
+Epoch: 36, Iter: 200, Speed: 1.702 iter/sec, Train loss: 0.210
+Epoch: 36, Iter: 300, Speed: 1.700 iter/sec, Train loss: 0.213
+Epoch: 36, Time cost: 249.5063111782074
+
+=>Epoch 37, learning rate = 0.0006,                     previous best = 0.6193
+Epoch: 37, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.167
+Epoch: 37, Iter: 100, Speed: 1.750 iter/sec, Train loss: 0.198
+Epoch: 37, Iter: 200, Speed: 1.702 iter/sec, Train loss: 0.205
+Epoch: 37, Iter: 300, Speed: 1.700 iter/sec, Train loss: 0.223
+Epoch: 37, Time cost: 248.42289400100708
+
+=>Epoch 38, learning rate = 0.0006,                     previous best = 0.6193
+Epoch: 38, Iter: 0, Speed: 0.063 iter/sec, Train loss: 0.042
+Epoch: 38, Iter: 100, Speed: 1.747 iter/sec, Train loss: 0.206
+Epoch: 38, Iter: 200, Speed: 1.701 iter/sec, Train loss: 0.190
+Epoch: 38, Iter: 300, Speed: 1.701 iter/sec, Train loss: 0.188
+Epoch: 38, Time cost: 249.0769510269165
+
+=>Epoch 39, learning rate = 0.0005,                     previous best = 0.6193
+Epoch: 39, Iter: 0, Speed: 0.061 iter/sec, Train loss: 0.067
+Epoch: 39, Iter: 100, Speed: 1.750 iter/sec, Train loss: 0.204
+Epoch: 39, Iter: 200, Speed: 1.702 iter/sec, Train loss: 0.205
+Epoch: 39, Iter: 300, Speed: 1.701 iter/sec, Train loss: 0.203
+Epoch: 39, Time cost: 248.7039008140564
+
+=>Epoch 40, learning rate = 0.0005,                     previous best = 0.6193
+Epoch: 40, Iter: 0, Speed: 0.063 iter/sec, Train loss: 0.126
+Epoch: 40, Iter: 100, Speed: 1.744 iter/sec, Train loss: 0.291
+Epoch: 40, Iter: 200, Speed: 1.701 iter/sec, Train loss: 0.260
+Epoch: 40, Iter: 300, Speed: 1.702 iter/sec, Train loss: 0.236
+pixAcc: 0.764, mIoU1: 0.224
+pixAcc: 0.776, mIoU2: 0.483
+Epoch: 40, Time cost: 262.98655581474304
+
+=>Epoch 41, learning rate = 0.0005,                     previous best = 0.6294
+Epoch: 41, Iter: 0, Speed: 0.061 iter/sec, Train loss: 0.146
+Epoch: 41, Iter: 100, Speed: 1.752 iter/sec, Train loss: 0.186
+Epoch: 41, Iter: 200, Speed: 1.702 iter/sec, Train loss: 0.189
+Epoch: 41, Iter: 300, Speed: 1.699 iter/sec, Train loss: 0.180
+Epoch: 41, Time cost: 249.7338001728058
+
+=>Epoch 42, learning rate = 0.0005,                     previous best = 0.6294
+Epoch: 42, Iter: 0, Speed: 0.061 iter/sec, Train loss: 0.105
+Epoch: 42, Iter: 100, Speed: 1.749 iter/sec, Train loss: 0.161
+Epoch: 42, Iter: 200, Speed: 1.702 iter/sec, Train loss: 0.185
+Epoch: 42, Iter: 300, Speed: 1.701 iter/sec, Train loss: 0.206
+Epoch: 42, Time cost: 248.60160756111145
+
+=>Epoch 43, learning rate = 0.0005,                     previous best = 0.6294
+Epoch: 43, Iter: 0, Speed: 0.063 iter/sec, Train loss: 0.203
+Epoch: 43, Iter: 100, Speed: 1.748 iter/sec, Train loss: 0.205
+Epoch: 43, Iter: 200, Speed: 1.704 iter/sec, Train loss: 0.196
+Epoch: 43, Iter: 300, Speed: 1.703 iter/sec, Train loss: 0.184
+Epoch: 43, Time cost: 248.9626660346985
+
+=>Epoch 44, learning rate = 0.0005,                     previous best = 0.6294
+Epoch: 44, Iter: 0, Speed: 0.060 iter/sec, Train loss: 0.246
+Epoch: 44, Iter: 100, Speed: 1.751 iter/sec, Train loss: 0.242
+Epoch: 44, Iter: 200, Speed: 1.702 iter/sec, Train loss: 0.217
+Epoch: 44, Iter: 300, Speed: 1.700 iter/sec, Train loss: 0.199
+Epoch: 44, Time cost: 248.9778609275818
+
+=>Epoch 45, learning rate = 0.0005,                     previous best = 0.6294
+Epoch: 45, Iter: 0, Speed: 0.063 iter/sec, Train loss: 0.127
+Epoch: 45, Iter: 100, Speed: 1.750 iter/sec, Train loss: 0.184
+Epoch: 45, Iter: 200, Speed: 1.704 iter/sec, Train loss: 0.173
+Epoch: 45, Iter: 300, Speed: 1.703 iter/sec, Train loss: 0.167
+Epoch: 45, Time cost: 248.8834674358368
+
+=>Epoch 46, learning rate = 0.0005,                     previous best = 0.6294
+Epoch: 46, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.256
+Epoch: 46, Iter: 100, Speed: 1.751 iter/sec, Train loss: 0.154
+Epoch: 46, Iter: 200, Speed: 1.703 iter/sec, Train loss: 0.158
+Epoch: 46, Iter: 300, Speed: 1.702 iter/sec, Train loss: 0.164
+Epoch: 46, Time cost: 249.3746738433838
+
+=>Epoch 47, learning rate = 0.0005,                     previous best = 0.6294
+Epoch: 47, Iter: 0, Speed: 0.063 iter/sec, Train loss: 0.064
+Epoch: 47, Iter: 100, Speed: 1.749 iter/sec, Train loss: 0.150
+Epoch: 47, Iter: 200, Speed: 1.703 iter/sec, Train loss: 0.165
+Epoch: 47, Iter: 300, Speed: 1.701 iter/sec, Train loss: 0.172
+Epoch: 47, Time cost: 248.2009620666504
+
+=>Epoch 48, learning rate = 0.0004,                     previous best = 0.6294
+Epoch: 48, Iter: 0, Speed: 0.061 iter/sec, Train loss: 0.401
+Epoch: 48, Iter: 100, Speed: 1.749 iter/sec, Train loss: 0.160
+Epoch: 48, Iter: 200, Speed: 1.701 iter/sec, Train loss: 0.153
+Epoch: 48, Iter: 300, Speed: 1.701 iter/sec, Train loss: 0.156
+Epoch: 48, Time cost: 249.57954740524292
+
+=>Epoch 49, learning rate = 0.0004,                     previous best = 0.6294
+Epoch: 49, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.153
+Epoch: 49, Iter: 100, Speed: 1.751 iter/sec, Train loss: 0.142
+Epoch: 49, Iter: 200, Speed: 1.703 iter/sec, Train loss: 0.143
+Epoch: 49, Iter: 300, Speed: 1.701 iter/sec, Train loss: 0.144
+Epoch: 49, Time cost: 249.427640914917
+
+=>Epoch 50, learning rate = 0.0004,                     previous best = 0.6294
+Epoch: 50, Iter: 0, Speed: 0.060 iter/sec, Train loss: 0.109
+Epoch: 50, Iter: 100, Speed: 1.751 iter/sec, Train loss: 0.145
+Epoch: 50, Iter: 200, Speed: 1.703 iter/sec, Train loss: 0.136
+Epoch: 50, Iter: 300, Speed: 1.701 iter/sec, Train loss: 0.143
+pixAcc: 0.685, mIoU1: 0.196
+pixAcc: 0.787, mIoU2: 0.530
+Epoch: 50, Time cost: 263.5241684913635
+
+=>Epoch 51, learning rate = 0.0004,                     previous best = 0.6585
+Epoch: 51, Iter: 0, Speed: 0.061 iter/sec, Train loss: 0.239
+Epoch: 51, Iter: 100, Speed: 1.753 iter/sec, Train loss: 0.166
+Epoch: 51, Iter: 200, Speed: 1.704 iter/sec, Train loss: 0.155
+Epoch: 51, Iter: 300, Speed: 1.702 iter/sec, Train loss: 0.153
+Epoch: 51, Time cost: 248.71418404579163
+
+=>Epoch 52, learning rate = 0.0004,                     previous best = 0.6585
+Epoch: 52, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.080
+Epoch: 52, Iter: 100, Speed: 1.749 iter/sec, Train loss: 0.138
+Epoch: 52, Iter: 200, Speed: 1.705 iter/sec, Train loss: 0.137
+Epoch: 52, Iter: 300, Speed: 1.703 iter/sec, Train loss: 0.143
+Epoch: 52, Time cost: 249.0459017753601
+
+=>Epoch 53, learning rate = 0.0004,                     previous best = 0.6585
+Epoch: 53, Iter: 0, Speed: 0.063 iter/sec, Train loss: 0.086
+Epoch: 53, Iter: 100, Speed: 1.751 iter/sec, Train loss: 0.130
+Epoch: 53, Iter: 200, Speed: 1.702 iter/sec, Train loss: 0.136
+Epoch: 53, Iter: 300, Speed: 1.700 iter/sec, Train loss: 0.136
+Epoch: 53, Time cost: 249.25591492652893
+
+=>Epoch 54, learning rate = 0.0004,                     previous best = 0.6585
+Epoch: 54, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.179
+Epoch: 54, Iter: 100, Speed: 1.751 iter/sec, Train loss: 0.146
+Epoch: 54, Iter: 200, Speed: 1.704 iter/sec, Train loss: 0.138
+Epoch: 54, Iter: 300, Speed: 1.702 iter/sec, Train loss: 0.131
+Epoch: 54, Time cost: 248.28701996803284
+
+=>Epoch 55, learning rate = 0.0004,                     previous best = 0.6585
+Epoch: 55, Iter: 0, Speed: 0.061 iter/sec, Train loss: 0.150
+Epoch: 55, Iter: 100, Speed: 1.750 iter/sec, Train loss: 0.134
+Epoch: 55, Iter: 200, Speed: 1.704 iter/sec, Train loss: 0.138
+Epoch: 55, Iter: 300, Speed: 1.703 iter/sec, Train loss: 0.135
+Epoch: 55, Time cost: 249.5335762500763
+
+=>Epoch 56, learning rate = 0.0003,                     previous best = 0.6585
+Epoch: 56, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.071
+Epoch: 56, Iter: 100, Speed: 1.750 iter/sec, Train loss: 0.138
+Epoch: 56, Iter: 200, Speed: 1.704 iter/sec, Train loss: 0.130
+Epoch: 56, Iter: 300, Speed: 1.701 iter/sec, Train loss: 0.127
+Epoch: 56, Time cost: 249.27744555473328
+
+=>Epoch 57, learning rate = 0.0003,                     previous best = 0.6585
+Epoch: 57, Iter: 0, Speed: 0.063 iter/sec, Train loss: 0.124
+Epoch: 57, Iter: 100, Speed: 1.751 iter/sec, Train loss: 0.116
+Epoch: 57, Iter: 200, Speed: 1.704 iter/sec, Train loss: 0.120
+Epoch: 57, Iter: 300, Speed: 1.702 iter/sec, Train loss: 0.139
+Epoch: 57, Time cost: 248.08325672149658
+
+=>Epoch 58, learning rate = 0.0003,                     previous best = 0.6585
+Epoch: 58, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.133
+Epoch: 58, Iter: 100, Speed: 1.751 iter/sec, Train loss: 0.123
+Epoch: 58, Iter: 200, Speed: 1.704 iter/sec, Train loss: 0.117
+Epoch: 58, Iter: 300, Speed: 1.703 iter/sec, Train loss: 0.123
+Epoch: 58, Time cost: 249.117600440979
+
+=>Epoch 59, learning rate = 0.0003,                     previous best = 0.6585
+Epoch: 59, Iter: 0, Speed: 0.061 iter/sec, Train loss: 0.048
+Epoch: 59, Iter: 100, Speed: 1.753 iter/sec, Train loss: 0.113
+Epoch: 59, Iter: 200, Speed: 1.703 iter/sec, Train loss: 0.126
+Epoch: 59, Iter: 300, Speed: 1.702 iter/sec, Train loss: 0.129
+Epoch: 59, Time cost: 248.63864040374756
+
+=>Epoch 60, learning rate = 0.0003,                     previous best = 0.6585
+Epoch: 60, Iter: 0, Speed: 0.063 iter/sec, Train loss: 0.084
+Epoch: 60, Iter: 100, Speed: 1.750 iter/sec, Train loss: 0.131
+Epoch: 60, Iter: 200, Speed: 1.705 iter/sec, Train loss: 0.119
+Epoch: 60, Iter: 300, Speed: 1.704 iter/sec, Train loss: 0.122
+pixAcc: 0.672, mIoU1: 0.196
+pixAcc: 0.793, mIoU2: 0.533
+Epoch: 60, Time cost: 263.1219382286072
+
+=>Epoch 61, learning rate = 0.0003,                     previous best = 0.6630
+Epoch: 61, Iter: 0, Speed: 0.063 iter/sec, Train loss: 0.171
+Epoch: 61, Iter: 100, Speed: 1.754 iter/sec, Train loss: 0.121
+Epoch: 61, Iter: 200, Speed: 1.703 iter/sec, Train loss: 0.126
+Epoch: 61, Iter: 300, Speed: 1.703 iter/sec, Train loss: 0.124
+Epoch: 61, Time cost: 249.25461196899414
+
+=>Epoch 62, learning rate = 0.0003,                     previous best = 0.6630
+Epoch: 62, Iter: 0, Speed: 0.061 iter/sec, Train loss: 0.034
+Epoch: 62, Iter: 100, Speed: 1.751 iter/sec, Train loss: 0.105
+Epoch: 62, Iter: 200, Speed: 1.702 iter/sec, Train loss: 0.103
+Epoch: 62, Iter: 300, Speed: 1.701 iter/sec, Train loss: 0.109
+Epoch: 62, Time cost: 249.70439743995667
+
+=>Epoch 63, learning rate = 0.0002,                     previous best = 0.6630
+Epoch: 63, Iter: 0, Speed: 0.063 iter/sec, Train loss: 0.048
+Epoch: 63, Iter: 100, Speed: 1.751 iter/sec, Train loss: 0.106
+Epoch: 63, Iter: 200, Speed: 1.702 iter/sec, Train loss: 0.109
+Epoch: 63, Iter: 300, Speed: 1.701 iter/sec, Train loss: 0.114
+Epoch: 63, Time cost: 248.19995856285095
+
+=>Epoch 64, learning rate = 0.0002,                     previous best = 0.6630
+Epoch: 64, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.054
+Epoch: 64, Iter: 100, Speed: 1.752 iter/sec, Train loss: 0.115
+Epoch: 64, Iter: 200, Speed: 1.705 iter/sec, Train loss: 0.118
+Epoch: 64, Iter: 300, Speed: 1.704 iter/sec, Train loss: 0.117
+Epoch: 64, Time cost: 248.0886960029602
+
+=>Epoch 65, learning rate = 0.0002,                     previous best = 0.6630
+Epoch: 65, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.047
+Epoch: 65, Iter: 100, Speed: 1.751 iter/sec, Train loss: 0.107
+Epoch: 65, Iter: 200, Speed: 1.706 iter/sec, Train loss: 0.104
+Epoch: 65, Iter: 300, Speed: 1.703 iter/sec, Train loss: 0.107
+Epoch: 65, Time cost: 249.05698132514954
+
+=>Epoch 66, learning rate = 0.0002,                     previous best = 0.6630
+Epoch: 66, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.128
+Epoch: 66, Iter: 100, Speed: 1.752 iter/sec, Train loss: 0.110
+Epoch: 66, Iter: 200, Speed: 1.705 iter/sec, Train loss: 0.099
+Epoch: 66, Iter: 300, Speed: 1.703 iter/sec, Train loss: 0.103
+Epoch: 66, Time cost: 249.2008774280548
+
+=>Epoch 67, learning rate = 0.0002,                     previous best = 0.6630
+Epoch: 67, Iter: 0, Speed: 0.063 iter/sec, Train loss: 0.094
+Epoch: 67, Iter: 100, Speed: 1.752 iter/sec, Train loss: 0.107
+Epoch: 67, Iter: 200, Speed: 1.704 iter/sec, Train loss: 0.105
+Epoch: 67, Iter: 300, Speed: 1.703 iter/sec, Train loss: 0.104
+Epoch: 67, Time cost: 249.04012727737427
+
+=>Epoch 68, learning rate = 0.0002,                     previous best = 0.6630
+Epoch: 68, Iter: 0, Speed: 0.063 iter/sec, Train loss: 0.075
+Epoch: 68, Iter: 100, Speed: 1.751 iter/sec, Train loss: 0.098
+Epoch: 68, Iter: 200, Speed: 1.705 iter/sec, Train loss: 0.103
+Epoch: 68, Iter: 300, Speed: 1.703 iter/sec, Train loss: 0.098
+Epoch: 68, Time cost: 249.0231339931488
+
+=>Epoch 69, learning rate = 0.0002,                     previous best = 0.6630
+Epoch: 69, Iter: 0, Speed: 0.061 iter/sec, Train loss: 0.077
+Epoch: 69, Iter: 100, Speed: 1.752 iter/sec, Train loss: 0.116
+Epoch: 69, Iter: 200, Speed: 1.705 iter/sec, Train loss: 0.112
+Epoch: 69, Iter: 300, Speed: 1.704 iter/sec, Train loss: 0.106
+Epoch: 69, Time cost: 248.62535333633423
+
+=>Epoch 70, learning rate = 0.0002,                     previous best = 0.6630
+Epoch: 70, Iter: 0, Speed: 0.060 iter/sec, Train loss: 0.136
+Epoch: 70, Iter: 100, Speed: 1.751 iter/sec, Train loss: 0.090
+Epoch: 70, Iter: 200, Speed: 1.706 iter/sec, Train loss: 0.097
+Epoch: 70, Iter: 300, Speed: 1.704 iter/sec, Train loss: 0.096
+pixAcc: 0.682, mIoU1: 0.203
+pixAcc: 0.791, mIoU2: 0.529
+Epoch: 70, Time cost: 262.9899127483368
+
+=>Epoch 71, learning rate = 0.0001,                     previous best = 0.6630
+Epoch: 71, Iter: 0, Speed: 0.063 iter/sec, Train loss: 0.043
+Epoch: 71, Iter: 100, Speed: 1.754 iter/sec, Train loss: 0.102
+Epoch: 71, Iter: 200, Speed: 1.705 iter/sec, Train loss: 0.106
+Epoch: 71, Iter: 300, Speed: 1.703 iter/sec, Train loss: 0.106
+Epoch: 71, Time cost: 248.19108152389526
+
+=>Epoch 72, learning rate = 0.0001,                     previous best = 0.6630
+Epoch: 72, Iter: 0, Speed: 0.061 iter/sec, Train loss: 0.061
+Epoch: 72, Iter: 100, Speed: 1.751 iter/sec, Train loss: 0.093
+Epoch: 72, Iter: 200, Speed: 1.705 iter/sec, Train loss: 0.094
+Epoch: 72, Iter: 300, Speed: 1.704 iter/sec, Train loss: 0.099
+Epoch: 72, Time cost: 249.47030997276306
+
+=>Epoch 73, learning rate = 0.0001,                     previous best = 0.6630
+Epoch: 73, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.094
+Epoch: 73, Iter: 100, Speed: 1.753 iter/sec, Train loss: 0.110
+Epoch: 73, Iter: 200, Speed: 1.705 iter/sec, Train loss: 0.106
+Epoch: 73, Iter: 300, Speed: 1.704 iter/sec, Train loss: 0.101
+Epoch: 73, Time cost: 248.12594962120056
+
+=>Epoch 74, learning rate = 0.0001,                     previous best = 0.6630
+Epoch: 74, Iter: 0, Speed: 0.063 iter/sec, Train loss: 0.032
+Epoch: 74, Iter: 100, Speed: 1.750 iter/sec, Train loss: 0.091
+Epoch: 74, Iter: 200, Speed: 1.707 iter/sec, Train loss: 0.093
+Epoch: 74, Iter: 300, Speed: 1.706 iter/sec, Train loss: 0.095
+Epoch: 74, Time cost: 248.73903894424438
+
+=>Epoch 75, learning rate = 0.0001,                     previous best = 0.6630
+Epoch: 75, Iter: 0, Speed: 0.063 iter/sec, Train loss: 0.239
+Epoch: 75, Iter: 100, Speed: 1.753 iter/sec, Train loss: 0.113
+Epoch: 75, Iter: 200, Speed: 1.705 iter/sec, Train loss: 0.103
+Epoch: 75, Iter: 300, Speed: 1.704 iter/sec, Train loss: 0.101
+Epoch: 75, Time cost: 247.9380829334259
+
+=>Epoch 76, learning rate = 0.0001,                     previous best = 0.6630
+Epoch: 76, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.089
+Epoch: 76, Iter: 100, Speed: 1.751 iter/sec, Train loss: 0.094
+Epoch: 76, Iter: 200, Speed: 1.706 iter/sec, Train loss: 0.096
+Epoch: 76, Iter: 300, Speed: 1.705 iter/sec, Train loss: 0.096
+Epoch: 76, Time cost: 248.8710880279541
+
+=>Epoch 77, learning rate = 0.0001,                     previous best = 0.6630
+Epoch: 77, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.062
+Epoch: 77, Iter: 100, Speed: 1.753 iter/sec, Train loss: 0.086
+Epoch: 77, Iter: 200, Speed: 1.704 iter/sec, Train loss: 0.097
+Epoch: 77, Iter: 300, Speed: 1.703 iter/sec, Train loss: 0.099
+Epoch: 77, Time cost: 248.2066547870636
+
+=>Epoch 78, learning rate = 0.0000,                     previous best = 0.6630
+Epoch: 78, Iter: 0, Speed: 0.063 iter/sec, Train loss: 0.071
+Epoch: 78, Iter: 100, Speed: 1.751 iter/sec, Train loss: 0.086
+Epoch: 78, Iter: 200, Speed: 1.705 iter/sec, Train loss: 0.089
+Epoch: 78, Iter: 300, Speed: 1.706 iter/sec, Train loss: 0.090
+Epoch: 78, Time cost: 248.66835927963257
+
+=>Epoch 79, learning rate = 0.0000,                     previous best = 0.6630
+Epoch: 79, Iter: 0, Speed: 0.062 iter/sec, Train loss: 0.271
+Epoch: 79, Iter: 100, Speed: 1.754 iter/sec, Train loss: 0.111
+Epoch: 79, Iter: 200, Speed: 1.705 iter/sec, Train loss: 0.103
+Epoch: 79, Iter: 300, Speed: 1.702 iter/sec, Train loss: 0.101
+pixAcc: 0.692, mIoU1: 0.201
+pixAcc: 0.790, mIoU2: 0.527
+Epoch: 79, Time cost: 262.1327188014984
+pixAcc: 0.692, mIoU1: 0.201
+pixAcc: 0.790, mIoU2: 0.527

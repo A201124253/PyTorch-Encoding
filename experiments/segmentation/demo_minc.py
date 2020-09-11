@@ -4,13 +4,13 @@ import cv2
 import os
 
 # Get the model
-modelname='deeplab_resnest101_minc'
+# modelname='deeplab_resnest101_minc'
 # modelname='deeplab_resnet50s_minc'
-# modelname='deeplab_resnest50_minc'
+modelname='deeplab_resnest50_minc'
 # modelname='fcn_resnest50_minc'
 
 # transfer
-modelname='fcn_resnet50_minc'
+# modelname='fcn_resnet50_minc'
 
 # model = encoding.models.get_model('deeplab_resnest101_minc', pretrained=True)
 # model = encoding.models.get_model('deeplab_resnet50s_minc', pretrained=True).cuda()
@@ -23,7 +23,7 @@ model.eval()
 # url = 'https://github.com/zhanghang1989/image-data/blob/master/' + \
       # 'encoding/segmentation/ade20k/ADE_val_00001142.jpg?raw=true'
 # filename = 'example.jpg'
-imagename = '000090727'
+imagename = 'fabric_object_050_new'
 
 img = cv2.imread('images/'+imagename+'.jpg', cv2.IMREAD_UNCHANGED)
  

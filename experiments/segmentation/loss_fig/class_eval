@@ -1,0 +1,13 @@
+=> loaded checkpoint '/home/lzj/.encoding/models/resnet50s_fcn_withoutAux_120epoch/checkpoint_train_41.pth.tar' (epoch 41)
+Using poly LR scheduler with warm-up epochs of 0!
+pixAcc: 1.000, mIoU1: 0.043
+pixAcc: 0.959, mIoU2: 0.042
+
+
+=> loaded checkpoint '/home/lzj/.encoding/models/resnet50s_fcn_withoutAux_120epoch/checkpoint_train_41.pth.tar' (epoch 41)
+Using poly LR scheduler with warm-up epochs of 0!
+pixAcc: 0.971, mIoU1: 0.042
+pixAcc: 0.981, mIoU2: 0.043
+
+
+
